@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#2196F3</color>
+
+    <color name="middleGreen">#4CAF50</color>
+    <color name="outerSpace">#454851</color>
+    <color name="spanishGray">#9E9E9E</color>
+    <color name="vermillion">#F44336</color>
+    <color name="gargoyleGas">#FFDF46</color>
+
+    <color name="sunsetOrange">#FF595E</color>
+    <color name="sunGlow">#FFCA3A</color>
+    <color name="yellowGreen">#8AC926</color>
+    <color name="darkLavender">#6A4C93</color>
+
+</resources>

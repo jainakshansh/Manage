@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Manage</string>
+
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="what_are_you_thinking">What are you thinking?</string>
+    <string name="add_expense_transaction_and_get_started_today">Add Expense/Transaction and get started today!</string>
+    <string name="title">Title</string>
+    <string name="payment_to_john_doe">Payment to John Doe</string>
+    <string name="type">Type</string>
+    <string name="debit">Debit</string>
+    <string name="credit">Credit</string>
+    <string name="date">Date</string>
+    <string name="_16th_january_1997">16th January 1997</string>
+    <string name="amount">Amount</string>
+    <string name="_999">999</string>
+    <string name="category">Category</string>
+    <string name="monthly_bills">Monthly Bills</string>
+    <string name="comments">Comments</string>
+    <string name="add_comments_or_notes">Add comments or notes</string>
+    <string name="transaction_image_optional">Transaction Image (Optional)</string>
+    <string name="select_transaction_image">Select Transaction Image</string>
+    <string name="addTransaction">Add Transaction</string>
+    <string name="editTransaction">Edit Transaction</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="done">Done</string>
+
+</resources>
