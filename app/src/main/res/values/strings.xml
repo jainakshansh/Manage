@@ -25,5 +25,11 @@
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
+    <string name="search">Search</string>
+    <string name="sort">Sort</string>
+    <string name="bank_details">Bank Details</string>
+    <string name="exit">Exit</string>
+    <string name="fingerprint_authentication">Fingerprint Authentication</string>
+    <string name="place_your_fingertip_on_the_fingerprint_sensor_to_verify_your_identity">Place your fingertip on the Fingerprint sensor to verify your identity.</string>
 
 </resources>

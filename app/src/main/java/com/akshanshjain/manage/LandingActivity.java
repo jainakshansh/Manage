@@ -115,6 +115,32 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         //Starting off the loader.
         getLoaderManager().initLoader(EXPENSE_LOADER, null, this);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+
+                switch (id) {
+                    case R.id.search_nav:
+                        Toast.makeText(LandingActivity.this, "For search results", Toast.LENGTH_SHORT).show();
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.sort_nav:
+                        Toast.makeText(LandingActivity.this, "For sorted results", Toast.LENGTH_SHORT).show();
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.bank_details:
+                        Toast.makeText(LandingActivity.this, "For bank details", Toast.LENGTH_SHORT).show();
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.exit_app:
+                        finish();
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     private void permissionCode() {
