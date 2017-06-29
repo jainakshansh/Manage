@@ -31,5 +31,10 @@
     <string name="exit">Exit</string>
     <string name="fingerprint_authentication">Fingerprint Authentication</string>
     <string name="place_your_fingertip_on_the_fingerprint_sensor_to_verify_your_identity">Place your fingertip on the Fingerprint sensor to verify your identity.</string>
+    <string name="developer">Developer</string>
+    <string name="contact_developer">Contact Developer</string>
+    <string name="about_developer">About Developer</string>
+    <string name="utility">Utility</string>
+    <string name="application_options">Application Options</string>
 
 </resources>

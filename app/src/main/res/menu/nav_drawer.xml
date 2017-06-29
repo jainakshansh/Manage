@@ -1,24 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/search_nav"
-        android:icon="@drawable/ic_search"
-        android:title="@string/search" />
+    <item android:title="@string/utility">
+        <menu>
+            <item
+                android:id="@+id/search_nav"
+                android:icon="@drawable/ic_search"
+                android:title="@string/search" />
 
-    <item
-        android:id="@+id/sort_nav"
-        android:icon="@drawable/ic_sort"
-        android:title="@string/sort" />
+            <item
+                android:id="@+id/sort_nav"
+                android:icon="@drawable/ic_sort"
+                android:title="@string/sort" />
 
-    <item
-        android:id="@+id/bank_details"
-        android:icon="@drawable/ic_account_balance"
-        android:title="@string/bank_details" />
+            <item
+                android:id="@+id/bank_details"
+                android:icon="@drawable/ic_account_balance"
+                android:title="@string/bank_details" />
+        </menu>
+    </item>
 
-    <item
-        android:id="@+id/exit_app"
-        android:icon="@drawable/ic_exit_to_app"
-        android:title="@string/exit" />
+    <item android:title="@string/developer">
+        <menu>
+            <item
+                android:id="@+id/contact_developer"
+                android:icon="@drawable/ic_contact_mail"
+                android:title="@string/contact_developer" />
+            <item
+                android:id="@+id/about_dev"
+                android:icon="@drawable/ic_developer_mode"
+                android:title="@string/about_developer" />
+        </menu>
+    </item>
+
+    <item android:title="@string/application_options">
+        <menu>
+            <item
+                android:id="@+id/exit_app"
+                android:icon="@drawable/ic_exit_to_app"
+                android:title="@string/exit" />
+        </menu>
+    </item>
 
 </menu>

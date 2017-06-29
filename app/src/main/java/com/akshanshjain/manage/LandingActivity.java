@@ -131,11 +131,29 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.bank_details:
-                        Toast.makeText(LandingActivity.this, "For bank details", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), BankDetailsActivity.class));
                         drawerLayout.closeDrawers();
+                        break;
+                    case R.id.contact_developer:
+                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                        emailIntent.setType("text/html");
+                        emailIntent.putExtra(Intent.EXTRA_EMAIL, "jainakshansh@outlook.com");
+                        startActivity(Intent.createChooser(emailIntent, "Send E-mail"));
+                        break;
+                    case R.id.about_dev:
+                        Intent intentLinkedIn = getPackageManager().getLaunchIntentForPackage("com.linkedin.android");
+                        if (intentLinkedIn != null) {
+                            intentLinkedIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intentLinkedIn.setData(Uri.parse("https://www.linkedin.com/in/jainakshansh/"));
+                            startActivity(intentLinkedIn);
+                        } else {
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/in/jainakshansh/"));
+                            startActivity(browserIntent);
+                        }
                         break;
                     case R.id.exit_app:
                         finish();
+                        System.exit(0);
                         break;
                 }
                 return true;
