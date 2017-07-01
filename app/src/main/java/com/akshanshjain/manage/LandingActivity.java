@@ -123,7 +123,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
                 switch (id) {
                     case R.id.search_nav:
-                        Toast.makeText(LandingActivity.this, "For search results", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), SearchActivity.class));
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.sort_nav:

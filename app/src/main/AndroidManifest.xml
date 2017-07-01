@@ -40,7 +40,8 @@
             android:authorities="com.akshanshjain.manage"
             android:exported="false" />
 
-        <activity android:name=".BankDetailsActivity"></activity>
+        <activity android:name=".BankDetailsActivity" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>

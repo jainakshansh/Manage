@@ -36,5 +36,6 @@
     <string name="about_developer">About Developer</string>
     <string name="utility">Utility</string>
     <string name="application_options">Application Options</string>
+    <string name="please_search_for_something_to_view_results">Please search for something to view results</string>
 
 </resources>
