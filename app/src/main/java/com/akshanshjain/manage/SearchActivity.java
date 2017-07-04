@@ -23,6 +23,7 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
     private ListView listView;
     private FloatingSearchView fsv;
     private ExpenseCursorAdapter cursorAdapter;
+    private String searchQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
 
             @Override
             public void onSearchAction(String currentQuery) {
+                searchQuery = fsv.getQuery();
                 getLoaderManager().initLoader(10, null, SearchActivity.this);
             }
         });
@@ -80,12 +82,12 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
         };
 
         //This loader will execute the Content Provider's query method on a background thread.
-        return new CursorLoader(this,        //Parent activity context
-                ExpenseContract.ExpenseEntry.CONTENT_URI,    //Provider content URI to query
-                projection,                  //Columns to include into the cursor
-                null,                        //No selection clause
-                null,                        //No selection arguments
-                ExpenseContract.ExpenseEntry._ID + " DESC"); //Default sort order
+        return new CursorLoader(this,                               //Parent activity context
+                ExpenseContract.ExpenseEntry.CONTENT_URI,           //Provider content URI to query
+                projection,                                         //Columns to include into the cursor
+                null,                                               //No selection clause
+                null,                                               //No selection arguments
+                ExpenseContract.ExpenseEntry._ID + " DESC");        //Default sort order
     }
 
     @Override

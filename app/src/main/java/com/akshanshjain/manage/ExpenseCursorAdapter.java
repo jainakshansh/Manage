@@ -42,12 +42,12 @@ public class ExpenseCursorAdapter extends CursorAdapter {
         String amount = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_AMOUNT));
 
         if (type.equals("Debit")) {
-            typeExpense.setBackgroundResource(R.color.middleGreen);
-        } else {
             typeExpense.setBackgroundResource(R.color.vermillion);
+        } else {
+            typeExpense.setBackgroundResource(R.color.middleGreen);
         }
         titleExpense.setText(title);
         dateExpense.setText(date);
-        amountExpense.setText("Rs.\n" + amount);
+        amountExpense.setText("₹\n" + amount);
     }
 }
