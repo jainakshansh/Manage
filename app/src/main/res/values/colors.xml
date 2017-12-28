@@ -21,4 +21,9 @@
     <color name="selectiveYellow">#FFBA08</color>
     <color name="oxfordBlue">#032B43</color>
     <color name="deepGreenCyanTurquoise">#136F63</color>
+
+    <color name="gargoyleGas">#FFE74C</color>
+    <color name="fieryRose">#FF5964</color>
+    <!-- Include default android white as combination. -->
+    <color name="tealBlue">#38618C</color>
 </resources>
