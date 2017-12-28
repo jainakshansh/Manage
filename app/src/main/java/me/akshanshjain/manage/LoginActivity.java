@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class OnBoardingActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,10 +15,10 @@ public class OnBoardingActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_on_boarding);
+        setContentView(R.layout.activity_login);
 
-        //TODO: Adding the code for the onboarding sliders.
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        //TODO: Adding code for the Google Sign In through Firebase.
+        startActivity(new Intent(getApplicationContext(), LandingActivity.class));
         finish();
     }
 }
