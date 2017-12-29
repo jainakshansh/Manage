@@ -42,5 +42,25 @@ public final class ExpenseContract {
 
         //The name of the table for the database of the Expenses.
         public final static String TABLE_NAME = "expenseTable";
+
+        //The name of the columns in the table.
+        //Unique ID number for expenses. For use in the database only.
+        public final static String _ID = BaseColumns._ID;
+        //Title for the expense. Required.
+        public final static String EXPENSE_TITLE = "title";
+        //Type of the expense i.e. Expenditure or Income. Required.
+        public final static String EXPENSE_TYPE = "type";
+        //Amount for the expense. Required.
+        public final static String EXPENSE_AMOUNT = "amount";
+        //Category of the expense. Required.
+        public final static String EXPENSE_CATEGORY = "category";
+        //Date and Time of the expense. Required.
+        public final static String EXPENSE_DATE_TIME = "datetime";
+        //Any additional notes for the expense. Not absolute necessary for entry.
+        public final static String EXPENSE_NOTES = "notes";
+        //Location for the expense if possible. Not absolute necessary for entry.
+        public final static String EXPENSE_LOCATION = "location";
+        //Image for any type of expense incurred. Not absolute necessary for entry.
+        public final static String EXPENSE_IMAGE = "image";
     }
 }
