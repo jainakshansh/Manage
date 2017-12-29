@@ -170,7 +170,35 @@ public class ExpenseProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+
+        //Getting writable database.
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+        //Tracking the number of rows that were deleted.
+        int rowsDeleted;
+
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case EXPENSES:
+                //Deleting all rows that match the selection and selection args.
+                rowsDeleted = database.delete(ExpenseEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case EXPENSES_ID:
+                selection = ExpenseEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                rowsDeleted = database.delete(ExpenseEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Deletion not supported for URI: " + uri);
+        }
+
+        //If one or more deleted then we will notify all the listeners that the URI has changed.
+        if (rowsDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        //Returning the number of rows deleted.
+        return rowsDeleted;
     }
 
     @Override
