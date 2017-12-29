@@ -120,6 +120,10 @@ public class ExpenseProvider extends ContentProvider {
         }
     }
 
+    /*
+    Inserting expense into the database with the given content values.
+    Return the new content URI for that specific row in the database.
+     */
     private Uri insertExpense(Uri uri, ContentValues values) {
 
         //Checking that the title is not null.
@@ -136,7 +140,7 @@ public class ExpenseProvider extends ContentProvider {
 
         //Checking that the amount for an expense is not null.
         double amount = values.getAsDouble(ExpenseEntry.EXPENSE_AMOUNT);
-        if (amount < 0 && amount == 0) {
+        if (amount < 0 || amount == 0) {
             throw new IllegalArgumentException("Expense requires a amount.");
         }
 
@@ -171,6 +175,61 @@ public class ExpenseProvider extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case EXPENSES:
+                return updateExpense(uri, values, selection, selectionArgs);
+            case EXPENSES_ID:
+                //Extracting ID from the URI to know which row to update.
+                selection = ExpenseEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                return updateExpense(uri, values, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("Update not supported for the URI: " + uri);
+        }
+    }
+
+    /*
+    Updating expenses in the database with the given content values.
+    Applying changes to the rows for the given selection and selection arguments which can be 0 or 1 or more expenses.
+    Also returning the number of rows that were successfully updated.
+     */
+    private int updateExpense(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+
+        //Checking if the key with the title is present.
+        //And if present, checking if it's not null.
+        if (values.containsKey(ExpenseEntry.EXPENSE_TITLE)) {
+            String title = values.getAsString(ExpenseEntry.EXPENSE_TITLE);
+            if (title == null) {
+                throw new IllegalArgumentException("Expense requires a title.");
+            }
+        }
+
+        //Checking if amount value present and updating if it is.
+        if (values.containsKey(ExpenseEntry.EXPENSE_AMOUNT)) {
+            double amount = values.getAsDouble(ExpenseEntry.EXPENSE_AMOUNT);
+            if (amount < 0 || amount == 0) {
+                throw new IllegalArgumentException("Expense requires a valid amount.");
+            }
+        }
+
+        //If there are no values to update, then do not change the database table.
+        if (values.size() == 0) {
+            return 0;
+        }
+
+        //Otherwise get writable database to update the data.
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+        //Performing the update on the table and getting the number of rows affected.
+        int rowsUpdated = database.update(ExpenseEntry.TABLE_NAME, values, selection, selectionArgs);
+
+        //If one or more rows were updated we will notify all the listeners that given URI has changed.
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        //Returning the number of rows updated.
+        return rowsUpdated;
     }
 }
