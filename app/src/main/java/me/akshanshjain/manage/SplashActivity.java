@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         splashText = findViewById(R.id.splash_text);
-        quicksand_b = Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Bold.ttf");
+        quicksand_b = Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Regular.ttf");
         splashText.setTypeface(quicksand_b);
 
         new Handler().postDelayed(new Runnable() {
