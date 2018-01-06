@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF5964</color>
-    <color name="colorPrimaryDark">#FF5964</color>
-    <color name="colorAccent">#F44336</color>
+    <color name="colorPrimary">#6A4C93</color>
+    <color name="colorPrimaryDark">#6A4C93</color>
+    <color name="colorAccent">#6A4C93</color>
 
     <color name="lawnGreen">#89FC00</color>
 
@@ -26,4 +26,6 @@
     <color name="fieryRose">#FF5964</color>
     <!-- Include default android white as combination. -->
     <color name="tealBlue">#38618C</color>
+
+    <color name="materialBlack">#383838</color>
 </resources>

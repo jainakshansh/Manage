@@ -2,4 +2,6 @@
     <string name="app_name">Manage</string>
     <string name="nav_drawer_open">Open</string>
     <string name="nav_drawer_close">Close</string>
+    <string name="home">Home</string>
+    <string name="nav_item_title">●</string>
 </resources>
