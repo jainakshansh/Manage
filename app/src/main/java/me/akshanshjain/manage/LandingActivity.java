@@ -1,127 +1,73 @@
 package me.akshanshjain.manage;
 
-import android.content.res.ColorStateList;
+import android.app.DatePickerDialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
-import me.akshanshjain.manage.Adapters.SectionPagerAdapter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class LandingActivity extends AppCompatActivity {
 
-    private BottomNavigationView bottomNavigationView;
-    private ViewPager viewPager;
-    private SectionPagerAdapter sectionPagerAdapter;
-    private FloatingActionButton fab;
-    private MenuItem bottomNavMenu;
+    private TextView overviewText, overviewAmount;
+    private TextView monthlyBalance, dateSelected;
+    private Typeface quicksand_bold, quicksand_medium;
 
-    private ColorStateList overviewColors, profileColors, tobeChangedColors;
+    private DatePickerDialog.OnDateSetListener date;
+    private Calendar calendar;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
 
-        int[][] states = new int[][]{
-                new int[]{android.R.attr.state_checked}, // enabled
-                new int[]{-android.R.attr.state_enabled}, // disabled
-                new int[]{-android.R.attr.state_checked}, // unchecked
-                new int[]{android.R.attr.state_pressed},
-                new int[]{android.R.attr.state_window_focused}
-        };
-
-        int[] changing = new int[]{
-                ContextCompat.getColor(getApplicationContext(), R.color.fieryRose),
-                ContextCompat.getColor(getApplicationContext(), R.color.materialBlack),
-                ContextCompat.getColor(getApplicationContext(), R.color.materialBlack),
-                ContextCompat.getColor(getApplicationContext(), R.color.materialBlack),
-                ContextCompat.getColor(getApplicationContext(), R.color.fieryRose)
-        };
-
-        int[] overview = new int[]{
-                ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary),
-                ContextCompat.getColor(getApplicationContext(), R.color.materialBlack),
-                ContextCompat.getColor(getApplicationContext(), R.color.materialBlack),
-                ContextCompat.getColor(getApplicationContext(), R.color.materialBlack),
-                ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary)
-        };
-
-        int[] profile = new int[]{
-                ContextCompat.getColor(getApplicationContext(), R.color.vividCerulean),
-                ContextCompat.getColor(getApplicationContext(), R.color.materialBlack),
-                ContextCompat.getColor(getApplicationContext(), R.color.materialBlack),
-                ContextCompat.getColor(getApplicationContext(), R.color.materialBlack),
-                ContextCompat.getColor(getApplicationContext(), R.color.vividCerulean)
-        };
-
-        overviewColors = new ColorStateList(states, overview);
-        profileColors = new ColorStateList(states, profile);
-        tobeChangedColors = new ColorStateList(states, changing);
-
-        bottomNavigationView = findViewById(R.id.bottom_nav_landing);
-        bottomNavigationView.setItemIconTintList(overviewColors);
-        viewPager = findViewById(R.id.view_pager_container);
-        sectionPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(sectionPagerAdapter);
         fab = findViewById(R.id.add_expense_landing);
+        quicksand_bold = Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Bold.ttf");
+        quicksand_medium = Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Medium.ttf");
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        overviewText = findViewById(R.id.overview_text);
+        overviewText.setTypeface(quicksand_bold);
+        overviewAmount = findViewById(R.id.overview_amount);
+        overviewAmount.setTypeface(quicksand_bold);
+        monthlyBalance = findViewById(R.id.monthly_balance_text);
+        monthlyBalance.setTypeface(quicksand_medium);
+        dateSelected = findViewById(R.id.date_selected);
+        dateSelected.setTypeface(quicksand_bold);
+        calendar = Calendar.getInstance();
+
+        updateDate();
+        dateSelection();
+        dateSelected.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.to_be_changed:
-                        viewPager.setCurrentItem(0);
-                        bottomNavigationView.setItemIconTintList(tobeChangedColors);
-                        break;
-                    case R.id.overview:
-                        viewPager.setCurrentItem(1);
-                        bottomNavigationView.setItemIconTintList(overviewColors);
-                        break;
-                    case R.id.profile:
-                        viewPager.setCurrentItem(2);
-                        bottomNavigationView.setItemIconTintList(profileColors);
-                        break;
-                }
-                return false;
+            public void onClick(View v) {
+                new DatePickerDialog(LandingActivity.this, date, calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+    }
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+    private void dateSelection() {
+        date = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateDate();
             }
+        };
+    }
 
-            @Override
-            public void onPageSelected(int position) {
-                switch (position) {
-                    case 0:
-                        bottomNavigationView.setItemIconTintList(tobeChangedColors);
-                        break;
-                    case 1:
-                        bottomNavigationView.setItemIconTintList(overviewColors);
-                        break;
-                    case 2:
-                        bottomNavigationView.setItemIconTintList(profileColors);
-                        break;
-                }
-
-                if (bottomNavMenu != null) {
-                    bottomNavMenu.setChecked(false);
-                } else {
-                    bottomNavigationView.getMenu().getItem(0).setChecked(false);
-                }
-                bottomNavigationView.getMenu().getItem(position).setChecked(true);
-                bottomNavMenu = bottomNavigationView.getMenu().getItem(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
+    private void updateDate() {
+        String myDateFormat = "MM/dd/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myDateFormat, Locale.US);
+        dateSelected.setText(simpleDateFormat.format(calendar.getTime()));
     }
 }

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6A4C93</color>
-    <color name="colorPrimaryDark">#6A4C93</color>
-    <color name="colorAccent">#6A4C93</color>
+    <color name="colorPrimary">#17A1EA</color>
+    <color name="colorPrimaryDark">#17A1EA</color>
+    <color name="colorAccent">#17A1EA</color>
 
-    <color name="vividCerulean">#17A1EA</color>
     <color name="lawnGreen">#89FC00</color>
 
     <color name="flame">#E4572E</color>
