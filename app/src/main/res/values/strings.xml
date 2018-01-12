@@ -4,4 +4,6 @@
     <string name="nav_drawer_close">Close</string>
     <string name="home">Home</string>
     <string name="nav_item_title">●</string>
+    <string name="overview">Overview</string>
+    <string name="monthly_balance">Monthly balance</string>
 </resources>

@@ -8,14 +8,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import me.akshanshjain.manage.Adapters.SectionPagerAdapter;
 
 public class LandingActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
     private ViewPager viewPager;
     private SectionPagerAdapter sectionPagerAdapter;
@@ -28,13 +26,6 @@ public class LandingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
-
-        //Setting up the toolbar for the activity.
-        toolbar = findViewById(R.id.toolbar_landing);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("");
-        }
 
         int[][] states = new int[][]{
                 new int[]{android.R.attr.state_checked}, // enabled
