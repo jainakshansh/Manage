@@ -5,5 +5,7 @@
     <string name="home">Home</string>
     <string name="nav_item_title">●</string>
     <string name="overview">Overview</string>
-    <string name="monthly_balance">Monthly balance</string>
+    <string name="total_balance">Total Balance</string>
+    <string name="view_card_details">View Card Details</string>
+    <string name="monthly_balance">Monthly Balance</string>
 </resources>
