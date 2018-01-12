@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout_landing"
     android:layout_width="match_parent"
@@ -8,103 +7,5 @@
     android:background="@android:color/white"
     android:fitsSystemWindows="true"
     tools:context=".LandingActivity">
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/upper_card_parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="8dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/overview_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/overview"
-                android:textAllCaps="true"
-                android:textColor="@color/spanishGray"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/overview_amount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:gravity="center"
-                android:text="₹ 15,768.78"
-                android:textAllCaps="true"
-                android:textColor="@color/materialBlack"
-                android:textSize="28sp"
-                tools:text="₹15,768.78" />
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/middle_card_parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="8dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/upper_card_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/monthly_balance_text"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="4dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_button_gray_outline"
-                    android:gravity="center"
-                    android:text="@string/monthly_balance"
-                    android:textAllCaps="true"
-                    android:textColor="@color/spanishGray" />
-
-                <Button
-                    android:id="@+id/date_selected"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="4dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_button_solid"
-                    android:textColor="@android:color/white" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_expense_landing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
