@@ -20,8 +20,9 @@ public class LandingActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private SectionPagerAdapter sectionPagerAdapter;
     private FloatingActionButton fab;
+    private MenuItem bottomNavMenu;
 
-    private ColorStateList overviewColors, profileColors;
+    private ColorStateList overviewColors, profileColors, tobeChangedColors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +36,20 @@ public class LandingActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("");
         }
 
-        bottomNavigationView = findViewById(R.id.bottom_nav_landing);
-        viewPager = findViewById(R.id.view_pager_container);
-        sectionPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(sectionPagerAdapter);
-        fab = findViewById(R.id.add_expense_landing);
-
         int[][] states = new int[][]{
                 new int[]{android.R.attr.state_checked}, // enabled
                 new int[]{-android.R.attr.state_enabled}, // disabled
                 new int[]{-android.R.attr.state_checked}, // unchecked
                 new int[]{android.R.attr.state_pressed},
                 new int[]{android.R.attr.state_window_focused}
+        };
+
+        int[] changing = new int[]{
+                ContextCompat.getColor(getApplicationContext(), R.color.fieryRose),
+                ContextCompat.getColor(getApplicationContext(), R.color.materialBlack),
+                ContextCompat.getColor(getApplicationContext(), R.color.materialBlack),
+                ContextCompat.getColor(getApplicationContext(), R.color.materialBlack),
+                ContextCompat.getColor(getApplicationContext(), R.color.fieryRose)
         };
 
         int[] overview = new int[]{
@@ -67,17 +70,29 @@ public class LandingActivity extends AppCompatActivity {
 
         overviewColors = new ColorStateList(states, overview);
         profileColors = new ColorStateList(states, profile);
+        tobeChangedColors = new ColorStateList(states, changing);
+
+        bottomNavigationView = findViewById(R.id.bottom_nav_landing);
+        bottomNavigationView.setItemIconTintList(overviewColors);
+        viewPager = findViewById(R.id.view_pager_container);
+        sectionPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(sectionPagerAdapter);
+        fab = findViewById(R.id.add_expense_landing);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.overview:
+                    case R.id.to_be_changed:
                         viewPager.setCurrentItem(0);
+                        bottomNavigationView.setItemIconTintList(tobeChangedColors);
+                        break;
+                    case R.id.overview:
+                        viewPager.setCurrentItem(1);
                         bottomNavigationView.setItemIconTintList(overviewColors);
                         break;
                     case R.id.profile:
-                        viewPager.setCurrentItem(1);
+                        viewPager.setCurrentItem(2);
                         bottomNavigationView.setItemIconTintList(profileColors);
                         break;
                 }
@@ -94,12 +109,23 @@ public class LandingActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
-                        bottomNavigationView.setItemIconTintList(overviewColors);
+                        bottomNavigationView.setItemIconTintList(tobeChangedColors);
                         break;
                     case 1:
+                        bottomNavigationView.setItemIconTintList(overviewColors);
+                        break;
+                    case 2:
                         bottomNavigationView.setItemIconTintList(profileColors);
                         break;
                 }
+
+                if (bottomNavMenu != null) {
+                    bottomNavMenu.setChecked(false);
+                } else {
+                    bottomNavigationView.getMenu().getItem(0).setChecked(false);
+                }
+                bottomNavigationView.getMenu().getItem(position).setChecked(true);
+                bottomNavMenu = bottomNavigationView.getMenu().getItem(position);
             }
 
             @Override

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="@string/nav_item_title" />
+    <item
+        android:id="@+id/to_be_changed"
+        android:title="@string/nav_item_title" />
 
     <item
         android:id="@+id/overview"
