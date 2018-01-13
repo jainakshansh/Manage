@@ -7,13 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
+
+import me.akshanshjain.manage.Adapters.CategorySpinnerAdapter;
 
 public class NewExpenseActivity extends AppCompatActivity {
 
@@ -22,6 +27,8 @@ public class NewExpenseActivity extends AppCompatActivity {
     private AppCompatSpinner categorySpinner;
     private EditText amountInput;
 
+    private List<String> categoryList;
+    private CategorySpinnerAdapter categorySpinnerAdapter;
     private Calendar calendar;
     private DatePickerDialog.OnDateSetListener date;
 
@@ -84,6 +91,34 @@ public class NewExpenseActivity extends AppCompatActivity {
             }
         });
         dateLabelUpdate();
+
+        /*
+        Initialising and defining Categories for the expenses.
+         */
+        categoryList = new ArrayList<>();
+        categoryList.add("Daily");
+        categoryList.add("Education");
+        categoryList.add("Entertainment");
+        categoryList.add("Fuel");
+        categoryList.add("Maintenance");
+        categoryList.add("Meals");
+        categoryList.add("Office");
+        categoryList.add("Personal");
+        categoryList.add("Travel");
+        categorySpinnerAdapter = new CategorySpinnerAdapter(getApplicationContext(), categoryList);
+
+        categorySpinner = findViewById(R.id.category_new_expense);
+        categorySpinner.setAdapter(categorySpinnerAdapter);
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                categorySpinnerAdapter.setDropDownViewResource(R.layout.spinner_item_dd);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     private void expenseTypeLogic() {
