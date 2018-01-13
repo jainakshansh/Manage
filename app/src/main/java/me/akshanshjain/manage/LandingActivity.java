@@ -24,7 +24,7 @@ public class LandingActivity extends AppCompatActivity {
     private FloatingActionButton fab;
 
     private TextView overViewText, overviewAmount;
-    private Button viewAllCards;
+    private Button allTransactions, allCards;
     private TextView monthlyText, monthlyAmount;
     private TextView incomeHeader, incomeAmount, expenseHeader, expenseAmount;
 
@@ -48,8 +48,10 @@ public class LandingActivity extends AppCompatActivity {
         overviewAmount = findViewById(R.id.overview_amount);
         overviewAmount.setTypeface(quicksand_bold);
 
-        viewAllCards = findViewById(R.id.view_all_cards);
-        viewAllCards.setTypeface(quicksand_bold);
+        allTransactions = findViewById(R.id.view_all_transactions);
+        allTransactions.setTypeface(quicksand_bold);
+        allCards = findViewById(R.id.view_all_cards);
+        allCards.setTypeface(quicksand_bold);
 
         monthlyText = findViewById(R.id.monthly_balance_text);
         monthlyText.setTypeface(quicksand_medium);
@@ -76,7 +78,7 @@ public class LandingActivity extends AppCompatActivity {
         lineChart.setDragEnabled(true);
         lineChart.setScaleEnabled(true);
 
-        setData(100,500);
+        setData(100, 500);
     }
 
     private void setData(int count, float range) {
