@@ -19,7 +19,7 @@
         <activity android:name=".OnBoardingActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".LandingActivity" />
-        <activity android:name=".AllTransactionsActivity" />
+        <activity android:name=".TransactionsActivity" />
         <activity android:name=".Databases.CardsActivity"></activity>
     </application>
 
