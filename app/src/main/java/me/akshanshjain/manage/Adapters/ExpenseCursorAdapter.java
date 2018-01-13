@@ -2,9 +2,15 @@ package me.akshanshjain.manage.Adapters;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Typeface;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.TextView;
+
+import me.akshanshjain.manage.Databases.ExpenseContract.ExpenseEntry;
+import me.akshanshjain.manage.R;
 
 /**
  * Created by Akshansh on 13-01-2018.
@@ -12,11 +18,15 @@ import android.widget.CursorAdapter;
 
 public class ExpenseCursorAdapter extends CursorAdapter {
 
+    private Typeface quicksand_bold, quicksand_medium;
+
     /*
     Constructor for the Adapter taking in context and the cursor.
      */
     public ExpenseCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
+        quicksand_bold = Typeface.createFromAsset(context.getAssets(), "fonts/Quicksand_Bold.ttf");
+        quicksand_medium = Typeface.createFromAsset(context.getAssets(), "fonts/Quicksand_Medium.ttf");
     }
 
     /*
@@ -24,11 +34,35 @@ public class ExpenseCursorAdapter extends CursorAdapter {
      */
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return null;
+        return LayoutInflater.from(parent.getContext()).inflate(R.layout.single_expense_item, parent, false);
     }
 
+    /*
+    Getting all the data from the database and binding it to the layout.
+     */
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+        //Initialising and referencing all the views from the XML.
+        TextView expenseTitle = view.findViewById(R.id.expense_title);
+        expenseTitle.setTypeface(quicksand_bold);
+        TextView expenseAmount = view.findViewById(R.id.expense_amount);
+        expenseAmount.setTypeface(quicksand_bold);
+        TextView expenseCategory = view.findViewById(R.id.expense_category);
+        expenseCategory.setTypeface(quicksand_medium);
+        TextView expenseDate = view.findViewById(R.id.expense_date);
+        expenseDate.setTypeface(quicksand_medium);
 
+        //Extracting all the data from the database.
+        String type = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_TYPE));
+        String title = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_TITLE));
+        String amount = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_AMOUNT));
+        String category = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_CATEGORY));
+        String date = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_DATE_TIME));
+
+        //Setting the extracted data into the views.
+        expenseTitle.setText(title);
+        expenseAmount.setText(amount);
+        expenseCategory.setText(category);
+        expenseDate.setText(date);
     }
 }
