@@ -38,7 +38,7 @@
 
         <provider
             android:name=".Databases.ExpenseProvider"
-            android:authorities="com.akshanshjain.manage"
+            android:authorities="me.akshanshjain.manage"
             android:exported="false" />
     </application>
 

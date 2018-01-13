@@ -26,16 +26,16 @@ public class ExpenseDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Creating table for expenses.
-        String SQL_CREATE_TABLE_EXPENSES = "CREATE TABLE " + ExpenseEntry.TABLE_NAME
-                + ExpenseEntry._ID + "INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + ExpenseEntry.EXPENSE_TITLE + "TEXT NOT NULL, "
-                + ExpenseEntry.EXPENSE_TYPE + "TEXT NOT NULL, "
-                + ExpenseEntry.EXPENSE_AMOUNT + "TEXT NOT NULL, "
-                + ExpenseEntry.EXPENSE_DATE_TIME + "TEXT NOT NULL, "
-                + ExpenseEntry.EXPENSE_CATEGORY + "TEXT, "
-                + ExpenseEntry.EXPENSE_LOCATION + "TEXT, "
-                + ExpenseEntry.EXPENSE_NOTES + "TEXT, "
-                + ExpenseEntry.EXPENSE_IMAGE + "BLOB );";
+        String SQL_CREATE_TABLE_EXPENSES = "CREATE TABLE " + ExpenseEntry.TABLE_NAME + " ("
+                + ExpenseEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + ExpenseEntry.EXPENSE_TITLE + " TEXT NOT NULL, "
+                + ExpenseEntry.EXPENSE_TYPE + " TEXT NOT NULL, "
+                + ExpenseEntry.EXPENSE_AMOUNT + " TEXT NOT NULL, "
+                + ExpenseEntry.EXPENSE_DATE_TIME + " TEXT NOT NULL, "
+                + ExpenseEntry.EXPENSE_CATEGORY + " TEXT, "
+                + ExpenseEntry.EXPENSE_LOCATION + " TEXT, "
+                + ExpenseEntry.EXPENSE_NOTES + " TEXT, "
+                + ExpenseEntry.EXPENSE_IMAGE + " BLOB );";
 
         db.execSQL(SQL_CREATE_TABLE_EXPENSES);
     }

@@ -3,6 +3,7 @@ package me.akshanshjain.manage;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -214,11 +216,11 @@ public class NewExpenseActivity extends AppCompatActivity {
         String category = categorySpinner.getSelectedItem().toString().trim();
 
         //Validation rules for if the data has been entered and if correctly entered.
-        if (TextUtils.isEmpty(amountInput.getText().toString())){
+        if (TextUtils.isEmpty(amountInput.getText().toString())) {
             amountInput.setError("Required!");
         }
 
-        if (TextUtils.isEmpty(expenseTitle.getText().toString())){
+        if (TextUtils.isEmpty(expenseTitle.getText().toString())) {
             expenseTitle.setError("Required!");
         }
 
@@ -229,5 +231,17 @@ public class NewExpenseActivity extends AppCompatActivity {
         values.put(ExpenseEntry.EXPENSE_AMOUNT, amount);
         values.put(ExpenseEntry.EXPENSE_DATE_TIME, date);
         values.put(ExpenseEntry.EXPENSE_CATEGORY, category);
+
+        /*
+        Inserting a new expense into the provider and returning the content URI for the new expense.
+         */
+        Uri newUri = getContentResolver().insert(ExpenseEntry.CONTENT_URI, values);
+        if (newUri == null) {
+            //Showing a toast message depending on whether or not the insertion was successful.
+            Toast.makeText(this, "Failed inserting a new expense!", Toast.LENGTH_SHORT).show();
+        } else {
+            //Otherwise the insertion was successfull and we can display successful toast.
+            Toast.makeText(this, "Insertion of the expense was successful!", Toast.LENGTH_SHORT).show();
+        }
     }
 }
