@@ -15,4 +15,6 @@
     <string name="expense">Expense</string>
     <string name="income">Income</string>
     <string name="rupee_symbol">₹</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
 </resources>

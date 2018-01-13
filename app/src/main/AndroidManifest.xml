@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.akshanshjain.manage">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,7 +30,16 @@
             android:parentActivityName=".LandingActivity" />
         <activity
             android:name=".NewExpenseActivity"
-            android:parentActivityName=".LandingActivity" />
+            android:parentActivityName=".LandingActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LandingActivity" />
+        </activity>
+
+        <provider
+            android:name=".Databases.ExpenseProvider"
+            android:authorities="com.akshanshjain.manage"
+            android:exported="false" />
     </application>
 
 </manifest>

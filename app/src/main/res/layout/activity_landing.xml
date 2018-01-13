@@ -167,7 +167,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="Income"
+                            android:text="@string/income"
                             android:textAllCaps="true"
                             android:textSize="16sp" />
 
@@ -178,7 +178,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="Expense"
+                            android:text="@string/expense"
                             android:textAllCaps="true"
                             android:textSize="16sp" />
 

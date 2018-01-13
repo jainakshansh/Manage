@@ -20,6 +20,14 @@ public class LandingActivity extends AppCompatActivity {
 
     private Typeface quicksand_bold, quicksand_medium;
 
+    private static final int REQUEST_PERMISSIONS = 100;
+
+    /*
+    These variables are for requesting permissions at run-time.
+     */
+    private static final int PERMISSION_CALLBACK_CONSTANT = 9;
+    private static final int REQUEST_PERMISSION_SETTINGS = 7;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
