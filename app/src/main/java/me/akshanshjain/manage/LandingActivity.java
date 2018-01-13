@@ -36,6 +36,12 @@ public class LandingActivity extends AppCompatActivity {
 
         //Referencing views from the XML and styling them in the layout.
         fab = findViewById(R.id.fab_landing);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), NewExpenseActivity.class));
+            }
+        });
         overViewText = findViewById(R.id.overview_text);
         overViewText.setTypeface(quicksand_bold);
         overviewAmount = findViewById(R.id.overview_amount);

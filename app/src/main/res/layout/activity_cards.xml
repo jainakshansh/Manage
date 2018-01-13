@@ -6,6 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".CardsActivity">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout_cards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_cards"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </android.support.design.widget.AppBarLayout>
+
     <LinearLayout
         android:id="@+id/empty_view_transactions"
         android:layout_width="match_parent"
@@ -15,7 +32,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/app_bar_layout_cards">
 
         <ImageView
             android:layout_width="156dp"

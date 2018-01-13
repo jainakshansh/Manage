@@ -12,16 +12,21 @@
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".OnBoardingActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".LandingActivity" />
-        <activity android:name=".TransactionsActivity" />
-        <activity android:name=".CardsActivity" />
-        <activity android:name=".NewExpenseActivity"></activity>
+        <activity
+            android:name=".TransactionsActivity"
+            android:parentActivityName=".LandingActivity" />
+        <activity
+            android:name=".CardsActivity"
+            android:parentActivityName=".LandingActivity" />
+        <activity
+            android:name=".NewExpenseActivity"
+            android:parentActivityName=".LandingActivity" />
     </application>
 
 </manifest>
