@@ -21,7 +21,7 @@ public class LandingActivity extends AppCompatActivity {
     private TextView incomeHeader, incomeAmount, expenseHeader, expenseAmount;
 
     private Typeface quicksand_bold, quicksand_medium;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
