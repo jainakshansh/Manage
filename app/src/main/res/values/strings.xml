@@ -9,4 +9,6 @@
     <string name="view_card_details"> + View Cards </string>
     <string name="monthly_balance">Monthly Balance</string>
     <string name="view_all_transactions"> + View Transactions</string>
+    <string name="no_transactions_added">No Transactions Added</string>
+    <string name="get_started">Get Started</string>
 </resources>

@@ -11,6 +11,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -56,10 +57,10 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
-                        android:text="₹ 1,60,197"
+                        android:text="₹ 1,60,197.00"
                         android:textAllCaps="true"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="36sp" />
+                        android:textColor="@color/vividCerulean"
+                        android:textSize="32sp" />
 
                 </LinearLayout>
 
@@ -140,8 +141,8 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
                         android:gravity="center"
-                        android:text="₹ 3,200"
-                        android:textColor="@color/colorPrimary"
+                        android:text="₹ 16,000.00"
+                        android:textColor="@color/vividCerulean"
                         android:textSize="24sp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -202,7 +203,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="+ ₹ 3,000.00"
+                            android:text="+ ₹ 25,000.00"
                             android:textAllCaps="true"
                             android:textColor="@color/palmLeaf"
                             android:textSize="18sp" />
@@ -214,7 +215,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="- ₹1,100.00"
+                            android:text="- ₹ 9,000.00"
                             android:textAllCaps="true"
                             android:textColor="@color/bostonUniRed"
                             android:textSize="16sp" />
@@ -273,6 +274,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:rippleColor="@color/colorPrimary" />
+        app:rippleColor="@android:color/white" />
 
 </android.support.constraint.ConstraintLayout>
