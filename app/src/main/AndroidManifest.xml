@@ -20,7 +20,8 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".LandingActivity" />
         <activity android:name=".TransactionsActivity" />
-        <activity android:name=".CardsActivity"></activity>
+        <activity android:name=".CardsActivity" />
+        <activity android:name=".NewExpenseActivity"></activity>
     </application>
 
 </manifest>
