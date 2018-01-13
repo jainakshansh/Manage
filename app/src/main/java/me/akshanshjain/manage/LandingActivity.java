@@ -53,6 +53,9 @@ public class LandingActivity extends AppCompatActivity {
         //Initialising all the views from the XML to style and add listeners to them.
         initViews();
 
+        /*
+        Reading the permission status stored in the shared preferences.
+         */
         permissionStatus = getSharedPreferences("permissionStatus", MODE_PRIVATE);
     }
 

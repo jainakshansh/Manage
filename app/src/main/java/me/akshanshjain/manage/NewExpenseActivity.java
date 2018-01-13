@@ -1,11 +1,17 @@
 package me.akshanshjain.manage;
 
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -19,13 +25,14 @@ import java.util.List;
 import java.util.Locale;
 
 import me.akshanshjain.manage.Adapters.CategorySpinnerAdapter;
+import me.akshanshjain.manage.Databases.ExpenseContract.ExpenseEntry;
 
 public class NewExpenseActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private Button expenseButton, incomeButton, datePickerButton;
     private AppCompatSpinner categorySpinner;
-    private EditText amountInput;
+    private EditText amountInput, expenseTitle;
 
     private List<String> categoryList;
     private CategorySpinnerAdapter categorySpinnerAdapter;
@@ -33,6 +40,8 @@ public class NewExpenseActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener date;
 
     private boolean isExpense = false;
+
+    private Typeface quicksand_bold, quicksand_medium;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +64,16 @@ public class NewExpenseActivity extends AppCompatActivity {
     private void initViews() {
         calendar = Calendar.getInstance();
 
+        /*
+        Setting up font styles for the activity.
+         */
+        quicksand_bold = Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Bold.ttf");
+        quicksand_medium = Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Medium.ttf");
+
         expenseButton = findViewById(R.id.expense_new_expense);
+        expenseButton.setTypeface(quicksand_bold);
         incomeButton = findViewById(R.id.income_new_expense);
+        incomeButton.setTypeface(quicksand_bold);
         expenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +99,7 @@ public class NewExpenseActivity extends AppCompatActivity {
             }
         };
         datePickerButton = findViewById(R.id.date_picker_new_expense);
+        datePickerButton.setTypeface(quicksand_medium);
         datePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +109,11 @@ public class NewExpenseActivity extends AppCompatActivity {
             }
         });
         dateLabelUpdate();
+
+        amountInput = findViewById(R.id.expense_amount_input);
+        amountInput.setTypeface(quicksand_bold);
+        expenseTitle = findViewById(R.id.expense_title_input);
+        expenseTitle.setTypeface(quicksand_medium);
 
         /*
         Initialising and defining Categories for the expenses.
@@ -139,5 +162,72 @@ public class NewExpenseActivity extends AppCompatActivity {
         String dateFormat = "MM/dd/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.US);
         datePickerButton.setText(sdf.format(calendar.getTime()));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.new_expense_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_expense_new:
+                saveExpense();
+                finish();
+                break;
+        }
+        return true;
+    }
+
+    /*
+   Reading the user inputs to save the details to the database.
+   Trim function removes any leading/trailing white spaces, if present.
+   */
+    private void saveExpense() {
+
+        //Getting the type of the transaction.
+        String type = "";
+        if (isExpense) {
+            type = "Expense";
+        } else {
+            type = "Income";
+        }
+
+        //Getting the title for the transaction.
+        String title = expenseTitle.getText().toString().trim();
+
+        //Getting the amount for the transaction.
+        String amount = amountInput.getText().toString().trim();
+
+        //Getting the date for the transaction.
+        String date = datePickerButton.getText().toString().trim();
+
+        //Getting the category for the transaction.
+        String category = categorySpinner.getSelectedItem().toString().trim();
+
+        //Validation rules for if the data has been entered and if correctly entered.
+        if (TextUtils.isEmpty(amountInput.getText().toString())){
+            amountInput.setError("Required!");
+        }
+
+        if (TextUtils.isEmpty(expenseTitle.getText().toString())){
+            expenseTitle.setError("Required!");
+        }
+
+        //Creating ContentValues object where we use key value pairs for column names and the rows are the attributes of the expense.
+        ContentValues values = new ContentValues();
+        values.put(ExpenseEntry.EXPENSE_TYPE, type);
+        values.put(ExpenseEntry.EXPENSE_TITLE, title);
+        values.put(ExpenseEntry.EXPENSE_AMOUNT, amount);
+        values.put(ExpenseEntry.EXPENSE_DATE_TIME, date);
+        values.put(ExpenseEntry.EXPENSE_CATEGORY, category);
     }
 }

@@ -1,12 +1,21 @@
 package me.akshanshjain.manage;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class CardsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private TextView noCards;
+    private Button getStarted;
+
+    private Typeface quicksand_bold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +31,21 @@ public class CardsActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("All Cards");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        quicksand_bold = Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Bold.ttf");
+
+        /*
+        Referencing views from the XML and styling them.
+         */
+        noCards = findViewById(R.id.no_cards_text);
+        getStarted = findViewById(R.id.get_started_cards);
+        noCards.setTypeface(quicksand_bold);
+        getStarted.setTypeface(quicksand_bold);
+        getStarted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(CardsActivity.this, "Coming soon!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

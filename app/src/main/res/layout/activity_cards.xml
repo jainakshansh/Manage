@@ -24,7 +24,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
-        android:id="@+id/empty_view_transactions"
+        android:id="@+id/empty_view_cards"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -41,6 +41,7 @@
             android:src="@drawable/empty_cards" />
 
         <TextView
+            android:id="@+id/no_cards_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -50,6 +51,7 @@
             android:textSize="20sp" />
 
         <Button
+            android:id="@+id/get_started_cards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="36dp"

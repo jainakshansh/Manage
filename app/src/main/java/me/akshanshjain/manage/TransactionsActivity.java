@@ -2,13 +2,17 @@ package me.akshanshjain.manage;
 
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import me.akshanshjain.manage.Adapters.ExpenseCursorAdapter;
 import me.akshanshjain.manage.Databases.ExpenseContract.ExpenseEntry;
@@ -18,6 +22,10 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
     private Toolbar toolbar;
     private ListView listView;
     private View emptyView;
+    private TextView noTransactions;
+    private Button getStarted;
+
+    private Typeface quicksand_bold;
 
     private static final int EXPENSE_LOADER = 9;
     private ExpenseCursorAdapter expenseCursorAdapter;
@@ -36,6 +44,22 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
             getSupportActionBar().setTitle("All Transactions");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        /*
+        Defining the typefaces to be used.
+         */
+        quicksand_bold = Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Bold.ttf");
+        noTransactions = findViewById(R.id.no_transactions_text);
+        noTransactions.setTypeface(quicksand_bold);
+        getStarted = findViewById(R.id.get_started_transcations);
+        getStarted.setTypeface(quicksand_bold);
+        getStarted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), NewExpenseActivity.class));
+                finish();
+            }
+        });
 
         /*
         Defining the Cursor Adapter for the expenses.

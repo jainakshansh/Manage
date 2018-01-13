@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".NewExpenseActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -59,6 +60,23 @@
 
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/expense_title_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/white"
+        android:gravity="start"
+        android:hint="Payment to John Doe"
+        android:inputType="text"
+        android:textSize="20sp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toRightOf="@id/rupee_text"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expense_type_parent" />
+
     <TextView
         android:id="@+id/rupee_text"
         android:layout_width="wrap_content"
@@ -72,7 +90,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/expense_amount_input"
-        app:layout_constraintTop_toBottomOf="@id/expense_type_parent"
+        app:layout_constraintTop_toBottomOf="@id/expense_title_input"
         app:layout_constraintVertical_chainStyle="spread" />
 
     <EditText
@@ -80,17 +98,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="@android:color/white"
         android:gravity="end"
+        android:hint="@string/_1_60_197_115"
         android:inputType="numberDecimal"
         android:textColor="@color/colorPrimary"
         android:textSize="36sp"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toRightOf="@id/rupee_text"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/expense_type_parent" />
+        app:layout_constraintTop_toBottomOf="@id/expense_title_input" />
 
     <LinearLayout
         android:id="@+id/expense_details_parent"

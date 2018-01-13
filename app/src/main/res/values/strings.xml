@@ -15,4 +15,6 @@
     <string name="rupee_symbol">₹</string>
     <string name="income">Income</string>
     <string name="expense">Expense</string>
+    <string name="done">Done</string>
+    <string name="_1_60_197_115">1,60,197.115</string>
 </resources>
