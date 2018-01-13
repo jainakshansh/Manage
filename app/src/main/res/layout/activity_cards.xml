@@ -4,6 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="me.akshanshjain.manage.Databases.CardsActivity">
+    tools:context=".CardsActivity">
+
+    <LinearLayout
+        android:id="@+id/empty_view_transactions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <ImageView
+            android:layout_width="156dp"
+            android:layout_height="156dp"
+            android:contentDescription="@string/no_cards_added"
+            android:src="@drawable/empty_cards" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/no_cards_added"
+            android:textColor="@color/materialBlack"
+            android:textSize="20sp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="36dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_button_gradient"
+            android:text="@string/get_started"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

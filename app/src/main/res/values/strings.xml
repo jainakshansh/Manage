@@ -11,4 +11,5 @@
     <string name="view_all_transactions"> + View Transactions</string>
     <string name="no_transactions_added">No Transactions Added</string>
     <string name="get_started">Get Started</string>
+    <string name="no_cards_added">No Cards Added</string>
 </resources>

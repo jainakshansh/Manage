@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import me.akshanshjain.manage.Databases.CardsActivity;
-
 public class LandingActivity extends AppCompatActivity {
 
     private FloatingActionButton fab;
