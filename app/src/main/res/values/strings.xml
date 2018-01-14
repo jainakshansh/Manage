@@ -17,4 +17,5 @@
     <string name="expense">Expense</string>
     <string name="done">Done</string>
     <string name="_1_60_197_115">1,60,197.115</string>
+    <string name="edit_transaction">Edit Transaction</string>
 </resources>
