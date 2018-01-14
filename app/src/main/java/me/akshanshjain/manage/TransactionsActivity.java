@@ -10,10 +10,10 @@ import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,10 +28,25 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
     private TextView noTransactions;
     private Button getStarted;
 
-    private Typeface quicksand_bold;
+    private Typeface quicksand_bold, quicksand_medium;
 
     private static final int EXPENSE_LOADER = 9;
     private ExpenseCursorAdapter expenseCursorAdapter;
+
+    /*
+    Bottom Sheet Variable List Start.
+     */
+    private BottomSheetDialog bottomSheetDialog;
+    private View bottomSheetView;
+
+    private TextView expenseTitle, expenseAmount, expenseDate, expenseCategory;
+    private ImageView expenseCategoryIcon, editTransaction;
+    private TextView expenseLocation, expenseNotes;
+
+    private String title, amount, date, category, location, notes, type;
+    /*
+    Bottom Sheet Variables List End.
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +67,7 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
         Defining the typefaces to be used.
          */
         quicksand_bold = Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Bold.ttf");
+        quicksand_medium = Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Medium.ttf");
         noTransactions = findViewById(R.id.no_transactions_text);
         noTransactions.setTypeface(quicksand_bold);
         getStarted = findViewById(R.id.get_started_transcations);
@@ -83,13 +99,83 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
         //Starting the loader to read the database information.
         getLoaderManager().initLoader(EXPENSE_LOADER, null, this);
 
+        bottomSheetDialog = new BottomSheetDialog(TransactionsActivity.this);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(TransactionsActivity.this);
-                View bottomSheetView = LayoutInflater.from(parent.getContext()).inflate(R.layout.detailed_bottom_sheet, parent, false);
+                bottomSheetView = getLayoutInflater().inflate(R.layout.detailed_bottom_sheet, parent, false);
                 bottomSheetDialog.setContentView(bottomSheetView);
+                bottomSheetFunctions();
                 bottomSheetDialog.show();
+            }
+        });
+    }
+
+    /*
+    Initialising and referencing all the views from the Bottom Sheet Layout.
+    All the views are then used to bind to the data and display data in a beautiful fashion.
+    Also includes button for editing the current data which takes the user to editor activity.
+     */
+    private void bottomSheetFunctions() {
+        editTransaction = bottomSheetView.findViewById(R.id.expense_edit_display);
+        expenseTitle = bottomSheetView.findViewById(R.id.expense_title_display);
+        expenseTitle.setTypeface(quicksand_bold);
+        expenseAmount = bottomSheetView.findViewById(R.id.expense_amount_display);
+        expenseAmount.setTypeface(quicksand_bold);
+        expenseCategory = bottomSheetView.findViewById(R.id.expense_category_display);
+        expenseCategory.setTypeface(quicksand_medium);
+        expenseCategoryIcon = bottomSheetView.findViewById(R.id.category_icon_display);
+        expenseDate = bottomSheetView.findViewById(R.id.expense_date_display);
+        expenseDate.setTypeface(quicksand_medium);
+        expenseLocation = bottomSheetView.findViewById(R.id.expense_location_display);
+        expenseLocation.setTypeface(quicksand_medium);
+        expenseNotes = bottomSheetView.findViewById(R.id.expense_notes_display);
+        expenseNotes.setTypeface(quicksand_medium);
+
+        expenseTitle.setText(title);
+        expenseCategory.setText(category);
+        expenseDate.setText(date);
+        expenseAmount.setText("₹ " + amount);
+        expenseNotes.setText(notes);
+        expenseLocation.setText(location);
+
+        //Setting corresponding icon to the category type.
+        switch (category) {
+            case "Daily":
+                expenseCategoryIcon.setImageResource(R.drawable.ic_daily);
+                break;
+            case "Education":
+                expenseCategoryIcon.setImageResource(R.drawable.ic_education);
+                break;
+            case "Entertainment":
+                expenseCategoryIcon.setImageResource(R.drawable.ic_entertainment);
+                break;
+            case "Fuel":
+                expenseCategoryIcon.setImageResource(R.drawable.ic_fuel);
+                break;
+            case "Maintenance":
+                expenseCategoryIcon.setImageResource(R.drawable.ic_maintenance);
+                break;
+            case "Meals":
+                expenseCategoryIcon.setImageResource(R.drawable.ic_meals);
+                break;
+            case "Office":
+                expenseCategoryIcon.setImageResource(R.drawable.ic_office);
+                break;
+            case "Personal":
+                expenseCategoryIcon.setImageResource(R.drawable.ic_personal);
+                break;
+            case "Travel":
+                expenseCategoryIcon.setImageResource(R.drawable.ic_travel);
+                break;
+        }
+
+        //Taking user to editor activity.
+        editTransaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), NewExpenseActivity.class));
             }
         });
     }
@@ -105,7 +191,9 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
                 ExpenseEntry.EXPENSE_TYPE,
                 ExpenseEntry.EXPENSE_AMOUNT,
                 ExpenseEntry.EXPENSE_CATEGORY,
-                ExpenseEntry.EXPENSE_DATE_TIME
+                ExpenseEntry.EXPENSE_DATE_TIME,
+                ExpenseEntry.EXPENSE_NOTES,
+                ExpenseEntry.EXPENSE_LOCATION
         };
 
         /*
@@ -124,6 +212,15 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
         /*
         Updating the Expense Cursor Adapter data with the new content to bind data to views.
          */
+        if (data.moveToFirst()) {
+            title = data.getString(data.getColumnIndex("title"));
+            type = data.getString(data.getColumnIndex("type"));
+            category = data.getString(data.getColumnIndex("category"));
+            amount = data.getString(data.getColumnIndex("amount"));
+            date = data.getString(data.getColumnIndex("datetime"));
+            location = data.getString(data.getColumnIndex("location"));
+            notes = data.getString(data.getColumnIndex("notes"));
+        }
         expenseCursorAdapter.swapCursor(data);
     }
 

@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
-    android:paddingBottom="24dp"
-    android:paddingTop="4dp"
+    android:paddingBottom="36dp"
+    android:paddingTop="16dp"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <TextView

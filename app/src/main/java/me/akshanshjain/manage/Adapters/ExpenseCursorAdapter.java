@@ -41,7 +41,7 @@ public class ExpenseCursorAdapter extends CursorAdapter {
     Getting all the data from the database and binding it to the layout.
      */
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, final Context context, Cursor cursor) {
         //Initialising and referencing all the views from the XML.
         TextView expenseTitle = view.findViewById(R.id.expense_title);
         expenseTitle.setTypeface(quicksand_bold);
@@ -53,7 +53,6 @@ public class ExpenseCursorAdapter extends CursorAdapter {
         expenseDate.setTypeface(quicksand_medium);
 
         //Extracting all the data from the database.
-        String type = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_TYPE));
         String title = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_TITLE));
         String amount = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_AMOUNT));
         String category = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_CATEGORY));

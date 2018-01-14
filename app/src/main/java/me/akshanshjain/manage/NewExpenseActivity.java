@@ -35,6 +35,7 @@ public class NewExpenseActivity extends AppCompatActivity {
     private Button expenseButton, incomeButton, datePickerButton;
     private AppCompatSpinner categorySpinner;
     private EditText amountInput, expenseTitle;
+    private EditText expenseNotes, expenseLocation;
 
     private List<String> categoryList;
     private CategorySpinnerAdapter categorySpinnerAdapter;
@@ -116,6 +117,11 @@ public class NewExpenseActivity extends AppCompatActivity {
         amountInput.setTypeface(quicksand_bold);
         expenseTitle = findViewById(R.id.expense_title_input);
         expenseTitle.setTypeface(quicksand_medium);
+
+        expenseNotes = findViewById(R.id.expense_notes_input);
+        expenseNotes.setTypeface(quicksand_medium);
+        expenseLocation = findViewById(R.id.expense_location_input);
+        expenseLocation.setTypeface(quicksand_medium);
 
         /*
         Initialising and defining Categories for the expenses.
@@ -217,6 +223,12 @@ public class NewExpenseActivity extends AppCompatActivity {
         //Getting the category for the transaction.
         String category = categorySpinner.getSelectedItem().toString().trim();
 
+        //Getting the location for the transaction.
+        String location = expenseLocation.getText().toString();
+
+        //Getting the notes for the transaction.
+        String notes = expenseNotes.getText().toString();
+
         //Creating ContentValues object where we use key value pairs for column names and the rows are the attributes of the expense.
         ContentValues values = new ContentValues();
         values.put(ExpenseEntry.EXPENSE_TYPE, type);
@@ -224,6 +236,8 @@ public class NewExpenseActivity extends AppCompatActivity {
         values.put(ExpenseEntry.EXPENSE_AMOUNT, amount);
         values.put(ExpenseEntry.EXPENSE_DATE_TIME, date);
         values.put(ExpenseEntry.EXPENSE_CATEGORY, category);
+        values.put(ExpenseEntry.EXPENSE_LOCATION, location);
+        values.put(ExpenseEntry.EXPENSE_NOTES, notes);
 
         /*
         Inserting a new expense into the provider and returning the content URI for the new expense.
@@ -239,8 +253,8 @@ public class NewExpenseActivity extends AppCompatActivity {
     }
 
     private boolean isFormValid() {
-        boolean titlePresent = false;
-        boolean amountPresent = false;
+        boolean titlePresent;
+        boolean amountPresent;
         //Validation rules for if the data has been entered and if correctly entered.
         if (TextUtils.isEmpty(amountInput.getText().toString())) {
             amountInput.setError("Required!");
