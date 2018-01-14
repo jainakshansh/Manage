@@ -18,4 +18,6 @@
     <string name="done">Done</string>
     <string name="_1_60_197_115">1,60,197.115</string>
     <string name="edit_transaction">Edit Transaction</string>
+    <string name="category_icon">Category Icon</string>
+    <string name="payment_to_john_doe">Payment to John Doe</string>
 </resources>
