@@ -132,7 +132,7 @@ public class NewExpenseActivity extends AppCompatActivity {
         categoryList.add("Travel");
         categorySpinnerAdapter = new CategorySpinnerAdapter(getApplicationContext(), categoryList);
 
-        categorySpinner = findViewById(R.id.category_new_expense);
+        categorySpinner = findViewById(R.id.expense_category_input);
         categorySpinner.setAdapter(categorySpinnerAdapter);
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -182,8 +182,10 @@ public class NewExpenseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_expense_new:
-                saveExpense();
-                finish();
+                if (isFormValid()) {
+                    saveExpense();
+                    finish();
+                }
                 break;
         }
         return true;
@@ -215,15 +217,6 @@ public class NewExpenseActivity extends AppCompatActivity {
         //Getting the category for the transaction.
         String category = categorySpinner.getSelectedItem().toString().trim();
 
-        //Validation rules for if the data has been entered and if correctly entered.
-        if (TextUtils.isEmpty(amountInput.getText().toString())) {
-            amountInput.setError("Required!");
-        }
-
-        if (TextUtils.isEmpty(expenseTitle.getText().toString())) {
-            expenseTitle.setError("Required!");
-        }
-
         //Creating ContentValues object where we use key value pairs for column names and the rows are the attributes of the expense.
         ContentValues values = new ContentValues();
         values.put(ExpenseEntry.EXPENSE_TYPE, type);
@@ -243,5 +236,24 @@ public class NewExpenseActivity extends AppCompatActivity {
             //Otherwise the insertion was successfull and we can display successful toast.
             Toast.makeText(this, "Insertion of the expense was successful!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean isFormValid() {
+        boolean titlePresent = false;
+        boolean amountPresent = false;
+        //Validation rules for if the data has been entered and if correctly entered.
+        if (TextUtils.isEmpty(amountInput.getText().toString())) {
+            amountInput.setError("Required!");
+            amountPresent = false;
+        } else {
+            amountPresent = true;
+        }
+        if (TextUtils.isEmpty(expenseTitle.getText().toString())) {
+            expenseTitle.setError("Required!");
+            titlePresent = false;
+        } else {
+            titlePresent = true;
+        }
+        return titlePresent && amountPresent;
     }
 }

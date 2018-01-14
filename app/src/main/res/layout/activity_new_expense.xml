@@ -82,7 +82,7 @@
         android:id="@+id/rupee_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:gravity="center"
         android:text="@string/rupee_symbol"
         android:textColor="@color/colorPrimary"
@@ -134,7 +134,7 @@
             android:background="@drawable/rounded_button_outline" />
 
         <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/category_new_expense"
+            android:id="@+id/expense_category_input"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
@@ -144,5 +144,42 @@
             android:gravity="center" />
 
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/expense_location_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/white"
+        android:drawableStart="@drawable/ic_location"
+        android:gravity="center_vertical"
+        android:hint="@string/insert_location"
+        android:inputType="textAutoComplete"
+        android:maxLines="1"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expense_details_parent" />
+
+    <EditText
+        android:id="@+id/expense_notes_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/white"
+        android:hint="@string/insert_notes_here"
+        android:inputType="textMultiLine|textAutoComplete|textAutoCorrect"
+        android:maxLines="5"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expense_location_input" />
 
 </android.support.constraint.ConstraintLayout>

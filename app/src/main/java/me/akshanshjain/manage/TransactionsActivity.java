@@ -7,9 +7,12 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -79,6 +82,16 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
 
         //Starting the loader to read the database information.
         getLoaderManager().initLoader(EXPENSE_LOADER, null, this);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(TransactionsActivity.this);
+                View bottomSheetView = LayoutInflater.from(parent.getContext()).inflate(R.layout.detailed_bottom_sheet, parent, false);
+                bottomSheetDialog.setContentView(bottomSheetView);
+                bottomSheetDialog.show();
+            }
+        });
     }
 
     @Override

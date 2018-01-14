@@ -20,4 +20,6 @@
     <string name="edit_transaction">Edit Transaction</string>
     <string name="category_icon">Category Icon</string>
     <string name="payment_to_john_doe">Payment to John Doe</string>
+    <string name="insert_location">Insert Location</string>
+    <string name="insert_notes_here">Insert Notes here</string>
 </resources>
