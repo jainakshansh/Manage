@@ -42,8 +42,6 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
     private TextView expenseTitle, expenseAmount, expenseDate, expenseCategory;
     private ImageView expenseCategoryIcon, editTransaction;
     private TextView expenseLocation, expenseNotes;
-
-    private String title, amount, date, category, location, notes, type;
     /*
     Bottom Sheet Variables List End.
      */
@@ -133,15 +131,16 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
         expenseNotes = bottomSheetView.findViewById(R.id.expense_notes_display);
         expenseNotes.setTypeface(quicksand_medium);
 
-        expenseTitle.setText(title);
-        expenseCategory.setText(category);
-        expenseDate.setText(date);
-        expenseAmount.setText("₹ " + amount);
-        expenseNotes.setText(notes);
-        expenseLocation.setText(location);
+        Cursor cursor = expenseCursorAdapter.getCursor();
+        expenseTitle.setText(cursor.getString(cursor.getColumnIndex("title")));
+        expenseCategory.setText(cursor.getString(cursor.getColumnIndex("category")));
+        expenseDate.setText(cursor.getString(cursor.getColumnIndex("datetime")));
+        expenseAmount.setText(cursor.getString(cursor.getColumnIndex("amount")));
+        expenseNotes.setText(cursor.getString(cursor.getColumnIndex("notes")));
+        expenseLocation.setText(cursor.getString(cursor.getColumnIndex("location")));
 
         //Setting corresponding icon to the category type.
-        switch (category) {
+        switch (cursor.getString(cursor.getColumnIndex("category"))) {
             case "Daily":
                 expenseCategoryIcon.setImageResource(R.drawable.ic_daily);
                 break;
@@ -212,15 +211,6 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
         /*
         Updating the Expense Cursor Adapter data with the new content to bind data to views.
          */
-        if (data.moveToFirst()) {
-            title = data.getString(data.getColumnIndex("title"));
-            type = data.getString(data.getColumnIndex("type"));
-            category = data.getString(data.getColumnIndex("category"));
-            amount = data.getString(data.getColumnIndex("amount"));
-            date = data.getString(data.getColumnIndex("datetime"));
-            location = data.getString(data.getColumnIndex("location"));
-            notes = data.getString(data.getColumnIndex("notes"));
-        }
         expenseCursorAdapter.swapCursor(data);
     }
 

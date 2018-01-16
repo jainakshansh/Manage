@@ -64,4 +64,14 @@ public class ExpenseCursorAdapter extends CursorAdapter {
         expenseCategory.setText(category);
         expenseDate.setText(date);
     }
+
+    @Override
+    public Object getItem(int position) {
+        return super.getItem(position);
+    }
+
+    @Override
+    public int getCount() {
+        return super.getCount();
+    }
 }
