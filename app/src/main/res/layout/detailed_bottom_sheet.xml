@@ -76,14 +76,29 @@
         tools:text="16/01/1997" />
 
     <TextView
-        android:id="@+id/expense_amount_display"
+        android:id="@+id/rupee_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/rupee_symbol"
         android:textColor="@android:color/white"
         android:textSize="36sp"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/category_icon_display"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+    <TextView
+        android:id="@+id/expense_amount_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="36sp"
+        app:layout_constraintLeft_toRightOf="@id/rupee_text"
         app:layout_constraintTop_toBottomOf="@id/category_icon_display"
         tools:text="@string/_1_60_197_115" />
 

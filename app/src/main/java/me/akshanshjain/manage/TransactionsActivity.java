@@ -1,15 +1,18 @@
 package me.akshanshjain.manage;
 
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -42,6 +45,7 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
     private TextView expenseTitle, expenseAmount, expenseDate, expenseCategory;
     private ImageView expenseCategoryIcon, editTransaction;
     private TextView expenseLocation, expenseNotes;
+    private Uri currentExpenseURI;
     /*
     Bottom Sheet Variables List End.
      */
@@ -104,8 +108,11 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 bottomSheetView = getLayoutInflater().inflate(R.layout.detailed_bottom_sheet, parent, false);
                 bottomSheetDialog.setContentView(bottomSheetView);
+                //Forming the content URI that represents the specific expense clicked on.
+                currentExpenseURI = ContentUris.withAppendedId(ExpenseEntry.CONTENT_URI, id);
                 bottomSheetFunctions();
                 bottomSheetDialog.show();
+                Log.d("ADebug", expenseNotes.getText().toString());
             }
         });
     }
@@ -174,7 +181,11 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
         editTransaction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), NewExpenseActivity.class));
+                Intent editExpenseIntent = new Intent(getApplicationContext(), NewExpenseActivity.class);
+
+                //Setting the URI on the data field of the intent.
+                editExpenseIntent.setData(currentExpenseURI);
+                startActivity(editExpenseIntent);
             }
         });
     }

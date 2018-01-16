@@ -1,18 +1,29 @@
 package me.akshanshjain.manage;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -29,7 +40,7 @@ import java.util.Locale;
 import me.akshanshjain.manage.Adapters.CategorySpinnerAdapter;
 import me.akshanshjain.manage.Databases.ExpenseContract.ExpenseEntry;
 
-public class NewExpenseActivity extends AppCompatActivity {
+public class NewExpenseActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private Toolbar toolbar;
     private Button expenseButton, incomeButton, datePickerButton;
@@ -46,6 +57,11 @@ public class NewExpenseActivity extends AppCompatActivity {
 
     private Typeface quicksand_bold, quicksand_medium;
 
+    private Uri currentExpenseUri;
+    private boolean expenseAltered = false;
+    private static final int EXISTING_EXPENSE_LOADER = 6;
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,11 +73,39 @@ public class NewExpenseActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar_new_expense);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Add Transaction");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        /*
+        Getting the intent that launched this activity and examining it.
+         */
+        Intent intent = getIntent();
+        currentExpenseUri = intent.getData();
+
+        /*
+        If intent DOES NOT contain the expense URI, then we will create a new expense.
+        Otherwise we will edit / update the expense.
+         */
+        if (currentExpenseUri == null) {
+            getSupportActionBar().setTitle("Add Transaction");
+            invalidateOptionsMenu();
+        } else {
+            getSupportActionBar().setTitle("Edit Transaction");
+            invalidateOptionsMenu();
+        }
+
+        getLoaderManager().initLoader(EXISTING_EXPENSE_LOADER, null, this);
+
         initViews();
+
+        expenseTitle.setOnTouchListener(touchListener);
+        incomeButton.setOnTouchListener(touchListener);
+        expenseButton.setOnTouchListener(touchListener);
+        amountInput.setOnTouchListener(touchListener);
+        datePickerButton.setOnTouchListener(touchListener);
+        categorySpinner.setOnTouchListener(touchListener);
+        expenseLocation.setOnTouchListener(touchListener);
+        expenseNotes.setOnTouchListener(touchListener);
     }
 
     private void initViews() {
@@ -174,6 +218,10 @@ public class NewExpenseActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        if (currentExpenseUri == null) {
+            //This is a new expense, so change the app bar to Add Transaction.
+            invalidateOptionsMenu();
+        }
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.new_expense_menu, menu);
         return true;
@@ -181,7 +229,14 @@ public class NewExpenseActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        return super.onPrepareOptionsMenu(menu);
+        super.onPrepareOptionsMenu(menu);
+
+        //If it is a new expense, we need to hide the Delete menu item.
+        if (currentExpenseUri == null) {
+            MenuItem menuItem = menu.findItem(R.id.delete_expense);
+            menuItem.setVisible(false);
+        }
+        return true;
     }
 
     @Override
@@ -193,6 +248,32 @@ public class NewExpenseActivity extends AppCompatActivity {
                     finish();
                 }
                 break;
+            case R.id.delete_expense:
+                //Popup confirmation dialog for expense deletion.
+                showDeleteConfirmationDialog();
+                break;
+            case R.id.home:
+                //If expense hasn't changed, continue with navigating to the parent activity.
+                if (!expenseAltered) {
+                    NavUtils.navigateUpFromSameTask(NewExpenseActivity.this);
+                    return true;
+                }
+
+                /*
+                Otherwise if there are unsaved changes, setting up a dialog to warn the user.
+                Create a click listener to handle the user confirming that changes should be discarded.
+                */
+                DialogInterface.OnClickListener discardButtonClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //User has clicked Discard Button, so navigate to parent activity.
+                        NavUtils.navigateUpFromSameTask(NewExpenseActivity.this);
+                    }
+                };
+
+                //Show a dialog that notifies the user that there are unsaved changes.
+                showUnsavedChangesDialog(discardButtonClickListener);
+                return true;
         }
         return true;
     }
@@ -204,7 +285,7 @@ public class NewExpenseActivity extends AppCompatActivity {
     private void saveExpense() {
 
         //Getting the type of the transaction.
-        String type = "";
+        String type;
         if (isExpense) {
             type = "Expense";
         } else {
@@ -242,13 +323,28 @@ public class NewExpenseActivity extends AppCompatActivity {
         /*
         Inserting a new expense into the provider and returning the content URI for the new expense.
          */
-        Uri newUri = getContentResolver().insert(ExpenseEntry.CONTENT_URI, values);
-        if (newUri == null) {
-            //Showing a toast message depending on whether or not the insertion was successful.
-            Toast.makeText(this, "Failed inserting a new expense!", Toast.LENGTH_SHORT).show();
+        if (currentExpenseUri == null) {
+            Uri newUri = getContentResolver().insert(ExpenseEntry.CONTENT_URI, values);
+            if (newUri == null) {
+                //Showing a toast message depending on whether or not the insertion was successful.
+                Toast.makeText(this, "Failed inserting a new expense!", Toast.LENGTH_SHORT).show();
+            } else {
+                //Otherwise the insertion was successful and we can display successful toast.
+                Toast.makeText(this, "Insertion of the expense was successful!", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            //Otherwise the insertion was successfull and we can display successful toast.
-            Toast.makeText(this, "Insertion of the expense was successful!", Toast.LENGTH_SHORT).show();
+            //Otherwise this is an existing expense so we update the expense with URI and pass in new Content Values.
+            int rowsAffected = getContentResolver().update(currentExpenseUri, values, null, null);
+
+            //Showing a toast message depending on whether the update was successful or not.
+            if (rowsAffected == 0) {
+                Toast.makeText(this, "Failed to update the Expense. Please try again!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), LandingActivity.class));
+            } else {
+                //Otherwise, the toast was successful and we display successful toast.
+                Toast.makeText(this, "Updating the expense successful!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), LandingActivity.class));
+            }
         }
     }
 
@@ -269,5 +365,189 @@ public class NewExpenseActivity extends AppCompatActivity {
             titlePresent = true;
         }
         return titlePresent && amountPresent;
+    }
+
+    private void showDeleteConfirmationDialog() {
+        /*
+        Create an alert dialog to help users have a second opinion of deleting the expense.
+        Also includes a message, a positive and a negative button.
+         */
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Do you want to permanently delete this expense?");
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                /*
+                User has clicked the delete button, so we proceed to deleting the expense.
+                 */
+                deletePet();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        //Create and show the Alert Dialog.
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    /*
+    Performing the deleting of expense in the database.
+     */
+    private void deletePet() {
+        if (currentExpenseUri != null) {
+            //Calling Content Resolver to delete the expense at the given content URI.
+            int rowsDeleted = getContentResolver().delete(currentExpenseUri, null, null);
+
+            //Showing a toast message which tells if the expense was deleted successfully.
+            if (rowsDeleted == 0) {
+                //If no rows deleted, there was an error.
+                Toast.makeText(this, "Failed to delete the expense!", Toast.LENGTH_SHORT).show();
+            } else {
+                //Otherwise deleting was successful, so display confirmation toast.
+                Toast.makeText(this, "Expense deletion successful!", Toast.LENGTH_SHORT).show();
+            }
+        }
+        startActivity(new Intent(getApplicationContext(), LandingActivity.class));
+        //Closing the activity after the operation.
+        finish();
+    }
+
+    private View.OnTouchListener touchListener = new View.OnTouchListener() {
+        @SuppressLint("ClickableViewAccessibility")
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            expenseAltered = true;
+            return false;
+        }
+    };
+
+    private void showUnsavedChangesDialog(DialogInterface.OnClickListener discardButtonClickListener) {
+        /*
+        Creating an AlertDialog.Builder and setting the message, and click listeners for positive and negative buttons on the dialog.
+         */
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Discard Changes and Quit Editing?");
+        builder.setPositiveButton("DISCARD", discardButtonClickListener);
+        builder.setNegativeButton("KEEP EDITIING", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //User has clicked keep editing button, so we dismiss the dialog and continue editing the expense.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        //Creating and showing the AlertDialog.
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        if (currentExpenseUri == null) {
+            return null;
+        }
+
+        //Since the editor shows all the expense attributes, define a projection
+        //It contains all columns from the pet table.
+        String[] projection = {
+                ExpenseEntry._ID,
+                ExpenseEntry.EXPENSE_TYPE,
+                ExpenseEntry.EXPENSE_TITLE,
+                ExpenseEntry.EXPENSE_AMOUNT,
+                ExpenseEntry.EXPENSE_DATE_TIME,
+                ExpenseEntry.EXPENSE_CATEGORY,
+                ExpenseEntry.EXPENSE_LOCATION,
+                ExpenseEntry.EXPENSE_NOTES
+        };
+
+        //This loader will execute the ContentProvider's query method on a background thread.
+        return new CursorLoader(this,
+                currentExpenseUri,
+                projection,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        //Bailing early if the cursor is null or there is less than 1 row in the cursor
+        if (cursor == null || cursor.getCount() < 1) {
+            return;
+        }
+
+        /*
+        Proceeding to moving to the first row if the cursor and reading data from it.
+        This should be the only row in the result.
+        */
+        if (cursor.moveToFirst()) {
+            //Extracting out data values from the database.
+            String title = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_TITLE));
+            String type = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_TYPE));
+            String amount = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_AMOUNT));
+            String date = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_DATE_TIME));
+            String category = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_CATEGORY));
+            String notes = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_NOTES));
+            String location = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_LOCATION));
+
+            //Updating the views in the UI from the extracted data.
+            expenseTitle.setText(title);
+            amountInput.setText(amount);
+            Log.d("ADebug", type);
+            if (type.equals(R.string.income)) {
+                isExpense = false;
+                expenseTypeLogic();
+            } else if (type.equals(R.string.expense)) {
+                isExpense = true;
+                expenseTypeLogic();
+            }
+            datePickerButton.setText(date);
+            categorySpinner.setSelection(categorySpinnerAdapter.getPosition(category));
+            expenseNotes.setText(notes);
+            expenseLocation.setText(location);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        //If the loader is invalidated, we will clear out all the data from the fields to function as New Transaction activity.
+        expenseTitle.setText("");
+        isExpense = false;
+        expenseTypeLogic();
+        amountInput.setText("");
+        dateLabelUpdate();
+        categorySpinner.setSelection(0);
+        expenseNotes.setText("");
+        expenseLocation.setText("");
+    }
+
+    @Override
+    public void onBackPressed() {
+        //If the expense hasn't changed, we return to original activity.
+        if (!expenseAltered) {
+            super.onBackPressed();
+            return;
+        }
+
+        //Otherwise there are unsaved changes, so we pop up the warning dialog to the user.
+        DialogInterface.OnClickListener discardButtonClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //User has clicked discard button, so we exit.
+                finish();
+            }
+        };
+
+        //Showing the dialog to the user to notify about the unsaved changes.
+        showUnsavedChangesDialog(discardButtonClickListener);
     }
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="92dp"
+    android:layout_height="100dp"
     android:layout_marginEnd="4dp"
     android:layout_marginStart="4dp"
     android:layout_marginTop="4dp"
@@ -14,7 +14,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="72dp">
+        android:layout_height="76dp">
 
         <TextView
             android:id="@+id/expense_title"
@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:gravity="center"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@id/expense_category"
@@ -38,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
+            android:gravity="center"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -53,6 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
+            android:gravity="center"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@id/expense_date"
@@ -69,6 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="4dp"
+            android:gravity="center"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"

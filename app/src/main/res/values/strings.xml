@@ -22,4 +22,6 @@
     <string name="payment_to_john_doe">Payment to John Doe</string>
     <string name="insert_location">Insert Location</string>
     <string name="insert_notes_here">Insert Notes here</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 </resources>

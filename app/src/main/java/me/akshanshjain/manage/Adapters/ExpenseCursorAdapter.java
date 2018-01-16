@@ -3,6 +3,7 @@ package me.akshanshjain.manage.Adapters;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,16 @@ public class ExpenseCursorAdapter extends CursorAdapter {
         String amount = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_AMOUNT));
         String category = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_CATEGORY));
         String date = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_DATE_TIME));
+        String type = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_TYPE));
+        String location = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_LOCATION));
+        switch (type) {
+            case "Income":
+                expenseAmount.setTextColor(ContextCompat.getColor(context.getApplicationContext(), R.color.lawnGreen));
+                break;
+            case "Expense":
+                expenseAmount.setTextColor(ContextCompat.getColor(context.getApplicationContext(), R.color.bostonUniRed));
+                break;
+        }
 
         //Setting the extracted data into the views.
         expenseTitle.setText(title);
