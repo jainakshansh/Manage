@@ -62,7 +62,7 @@ public class ExpenseCursorAdapter extends CursorAdapter {
         String location = cursor.getString(cursor.getColumnIndex(ExpenseEntry.EXPENSE_LOCATION));
         switch (type) {
             case "Income":
-                expenseAmount.setTextColor(ContextCompat.getColor(context.getApplicationContext(), R.color.lawnGreen));
+                expenseAmount.setTextColor(ContextCompat.getColor(context.getApplicationContext(), R.color.palmLeaf));
                 break;
             case "Expense":
                 expenseAmount.setTextColor(ContextCompat.getColor(context.getApplicationContext(), R.color.bostonUniRed));

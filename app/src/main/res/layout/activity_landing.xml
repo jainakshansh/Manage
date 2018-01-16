@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_parent_landing"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -84,6 +85,7 @@
                     android:layout_height="64dp"
                     android:layout_weight="1"
                     android:background="@color/colorPrimary"
+                    android:elevation="8dp"
                     android:text="@string/view_all_transactions"
                     android:textColor="@android:color/white" />
 
@@ -203,7 +205,6 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="+ ₹ 25,000.00"
                             android:textAllCaps="true"
                             android:textColor="@color/palmLeaf"
                             android:textSize="18sp" />
@@ -215,10 +216,9 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="- ₹ 9,000.00"
                             android:textAllCaps="true"
                             android:textColor="@color/bostonUniRed"
-                            android:textSize="16sp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 

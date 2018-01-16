@@ -1,10 +1,14 @@
 package me.akshanshjain.manage;
 
 import android.Manifest;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,7 +23,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LandingActivity extends AppCompatActivity {
+import me.akshanshjain.manage.Databases.ExpenseContract.ExpenseEntry;
+
+public class LandingActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private FloatingActionButton fab;
 
@@ -31,6 +37,7 @@ public class LandingActivity extends AppCompatActivity {
     private Typeface quicksand_bold, quicksand_medium;
 
     private static final int REQUEST_PERMISSIONS = 100;
+    private static final int LOADER_ID = 81;
 
     /*
     These variables are for requesting permissions at run-time.
@@ -44,6 +51,9 @@ public class LandingActivity extends AppCompatActivity {
     };
     private boolean sentToSettings = false;
     private SharedPreferences permissionStatus;
+    /*
+    Permission variables end.
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +67,8 @@ public class LandingActivity extends AppCompatActivity {
         Reading the permission status stored in the shared preferences.
          */
         permissionStatus = getSharedPreferences("permissionStatus", MODE_PRIVATE);
+
+        getLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
     private void initViews() {
@@ -219,5 +231,63 @@ public class LandingActivity extends AppCompatActivity {
                 proceedAfterPermission();
             }
         }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        /*
+        Defining the projection that specifies the columns from the table.
+         */
+        String[] projection = {
+                ExpenseEntry._ID,
+                ExpenseEntry.EXPENSE_TITLE,
+                ExpenseEntry.EXPENSE_TYPE,
+                ExpenseEntry.EXPENSE_AMOUNT,
+                ExpenseEntry.EXPENSE_CATEGORY,
+                ExpenseEntry.EXPENSE_DATE_TIME,
+                ExpenseEntry.EXPENSE_NOTES,
+                ExpenseEntry.EXPENSE_LOCATION
+        };
+
+        /*
+        This loader will execute the Content Provider's query method on a background thread.
+         */
+        return new CursorLoader(this,
+                ExpenseEntry.CONTENT_URI,
+                projection,
+                null,
+                null,
+                ExpenseEntry._ID);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        double incomeSum = 0, expenseSum = 0, grandTotal;
+        if (data != null) {
+            for (data.moveToFirst(); !data.isAfterLast(); data.moveToNext()) {
+                if (data.getString(data.getColumnIndex(ExpenseEntry.EXPENSE_TYPE)).equals("Income")) {
+                    incomeSum += Double.parseDouble(data.getString(data.getColumnIndex(ExpenseEntry.EXPENSE_AMOUNT)));
+                } else {
+                    expenseSum += Double.parseDouble(data.getString(data.getColumnIndex(ExpenseEntry.EXPENSE_AMOUNT)));
+                }
+            }
+        }
+        if (incomeSum >= expenseSum) {
+            grandTotal = incomeSum - expenseSum;
+            monthlyAmount.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.palmLeaf));
+            overviewAmount.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.palmLeaf));
+        } else {
+            grandTotal = expenseSum - incomeSum;
+            monthlyAmount.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.bostonUniRed));
+            overviewAmount.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.bostonUniRed));
+        }
+        incomeAmount.setText("₹ " + String.valueOf(incomeSum));
+        expenseAmount.setText("₹ " + String.valueOf(expenseSum));
+        monthlyAmount.setText("₹ " + String.valueOf(grandTotal));
+        overviewAmount.setText("₹ " + String.valueOf(grandTotal));
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
     }
 }
