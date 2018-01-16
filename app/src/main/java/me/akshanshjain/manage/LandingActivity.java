@@ -290,4 +290,10 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getLoaderManager().restartLoader(LOADER_ID, null, this);
+    }
 }

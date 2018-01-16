@@ -45,6 +45,7 @@
             android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_button_outline"
+            android:elevation="0dp"
             android:text="@string/expense" />
 
         <Button
@@ -56,6 +57,7 @@
             android:layout_marginStart="4dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_button_outline"
+            android:elevation="0dp"
             android:text="@string/income" />
 
     </LinearLayout>
@@ -131,7 +133,8 @@
             android:layout_marginEnd="4dp"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_button_outline" />
+            android:background="@drawable/rounded_button_outline"
+            android:elevation="0dp" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/expense_category_input"
@@ -141,6 +144,7 @@
             android:layout_marginStart="4dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_button_outline"
+            android:elevation="0dp"
             android:gravity="center" />
 
     </LinearLayout>
