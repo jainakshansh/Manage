@@ -222,10 +222,11 @@
 
                     </LinearLayout>
 
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/line_chart_landing"
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pie_chart_landing"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="300dp"
+                        android:layout_marginBottom="16dp"
                         android:layout_marginTop="12dp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"

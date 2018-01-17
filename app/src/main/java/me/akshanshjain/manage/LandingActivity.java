@@ -10,6 +10,7 @@ import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,8 +25,19 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import co.mobiwise.materialintro.shape.Focus;
+import co.mobiwise.materialintro.shape.FocusGravity;
+import co.mobiwise.materialintro.shape.ShapeType;
+import co.mobiwise.materialintro.view.MaterialIntroView;
 import me.akshanshjain.manage.Databases.ExpenseContract.ExpenseEntry;
 
 public class LandingActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -41,6 +53,8 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
 
     private static final int REQUEST_PERMISSIONS = 100;
     private static final int LOADER_ID = 81;
+
+    private PieChart pieChart;
 
     /*
     These variables are for requesting permissions at run-time.
@@ -65,6 +79,13 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
 
         //Initialising all the views from the XML to style and add listeners to them.
         initViews();
+
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            if (intent.getStringExtra("SOURCE").equals("Transaction")) {
+                tutorialScreen();
+            }
+        }
 
         /*
         Reading the permission status stored in the shared preferences.
@@ -149,7 +170,8 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
                                                 Manifest.permission.READ_EXTERNAL_STORAGE},
                                         REQUEST_PERMISSIONS);
                             }
-                        }).show();
+                        }).setActionTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white))
+                        .show();
             } else {
                 ActivityCompat.requestPermissions(LandingActivity.this,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -323,10 +345,79 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
         expenseAmount.setText("₹ " + String.valueOf(expenseMonth));
         monthlyAmount.setText("₹ " + String.valueOf(monthTotal));
         overviewAmount.setText("₹ " + String.valueOf(grandTotal));
+
+        createChart(incomeMonth, expenseMonth, monthTotal);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+    }
+
+    private void createChart(double incomeMonth, double expenseMonth, double monthTotal) {
+        pieChart = findViewById(R.id.pie_chart_landing);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.setExtraOffsets(5, 10, 5, 5);
+        pieChart.setDragDecelerationFrictionCoef(0.95f);
+
+        pieChart.setRotationAngle(0);
+        pieChart.setRotationEnabled(true);
+        pieChart.setHighlightPerTapEnabled(true);
+        storeData(incomeMonth, expenseMonth, monthTotal);
+    }
+
+    private void storeData(double incomeMonth, double expenseMonth, double monthTotal) {
+        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+        float income = (float) incomeMonth;
+        float expense = (float) expenseMonth;
+        pieEntries.add(new PieEntry(income, "Income"));
+        pieEntries.add(new PieEntry(expense, "Expense"));
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(ContextCompat.getColor(getApplicationContext(), R.color.palmLeaf));
+        colors.add(ContextCompat.getColor(getApplicationContext(), R.color.bostonUniRed));
+
+        PieDataSet dataSet = new PieDataSet(pieEntries, "");
+        dataSet.setColors(colors);
+        dataSet.setValueTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white));
+
+        PieData pieData = new PieData(dataSet);
+        pieData.setValueTextColor(Color.WHITE);
+        pieData.setValueTextSize(18);
+        pieData.setValueTypeface(quicksand_bold);
+
+        Description description = new Description();
+        description.setText("Monthly Expense");
+        description.setTypeface(quicksand_bold);
+        description.setTextSize(13);
+
+        pieChart.setData(pieData);
+        pieChart.setCenterText("Total Balance: " + monthTotal);
+        pieChart.setCenterTextTypeface(quicksand_bold);
+        pieChart.setCenterTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+        pieChart.animateX(500);
+        pieChart.setDescription(description);
+
+        pieChart.getLegend().setTypeface(quicksand_bold);
+        pieChart.getLegend().setTextSize(12);
+        pieChart.getLegend().setXOffset(10);
+        pieChart.getLegend().setYOffset(10);
+        pieChart.getLegend().setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+    }
+
+    private void tutorialScreen() {
+        new MaterialIntroView.Builder(this)
+                .enableDotAnimation(true)
+                .enableIcon(false)
+                .setFocusGravity(FocusGravity.CENTER)
+                .setFocusType(Focus.MINIMUM)
+                .setDelayMillis(500)
+                .enableFadeAnimation(true)
+                .performClick(true)
+                .setInfoText("Hello! Please click this icon to add new expense!")
+                .setShape(ShapeType.CIRCLE)
+                .setTarget(fab)
+                .setUsageId("tutorial_landing")
+                .show();
     }
 
     @Override

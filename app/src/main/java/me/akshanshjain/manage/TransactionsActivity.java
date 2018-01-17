@@ -77,7 +77,9 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
         getStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), NewExpenseActivity.class));
+                Intent intent = new Intent(getApplicationContext(), LandingActivity.class);
+                intent.putExtra("SOURCE", "Transaction");
+                startActivity(intent);
                 finish();
             }
         });
