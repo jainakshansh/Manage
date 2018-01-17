@@ -255,7 +255,8 @@ public class NewExpenseActivity extends AppCompatActivity implements LoaderManag
             case R.id.home:
                 //If expense hasn't changed, continue with navigating to the parent activity.
                 if (!expenseAltered) {
-                    NavUtils.navigateUpFromSameTask(NewExpenseActivity.this);
+                    //NavUtils.navigateUpFromSameTask(NewExpenseActivity.this);
+                    NavUtils.navigateUpTo(NewExpenseActivity.this, getParentActivityIntent());
                     return true;
                 }
 
@@ -267,7 +268,8 @@ public class NewExpenseActivity extends AppCompatActivity implements LoaderManag
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //User has clicked Discard Button, so navigate to parent activity.
-                        NavUtils.navigateUpFromSameTask(NewExpenseActivity.this);
+                        //NavUtils.navigateUpFromSameTask(NewExpenseActivity.this);
+                        NavUtils.navigateUpTo(NewExpenseActivity.this, getParentActivityIntent());
                     }
                 };
 
@@ -339,11 +341,9 @@ public class NewExpenseActivity extends AppCompatActivity implements LoaderManag
             //Showing a toast message depending on whether the update was successful or not.
             if (rowsAffected == 0) {
                 Toast.makeText(this, "Failed to update the Expense. Please try again!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), LandingActivity.class));
             } else {
                 //Otherwise, the toast was successful and we display successful toast.
                 Toast.makeText(this, "Updating the expense successful!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), LandingActivity.class));
             }
         }
     }
@@ -414,7 +414,6 @@ public class NewExpenseActivity extends AppCompatActivity implements LoaderManag
                 Toast.makeText(this, "Expense deletion successful!", Toast.LENGTH_SHORT).show();
             }
         }
-        startActivity(new Intent(getApplicationContext(), LandingActivity.class));
         //Closing the activity after the operation.
         finish();
     }

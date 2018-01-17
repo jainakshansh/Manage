@@ -1,5 +1,6 @@
 package me.akshanshjain.manage.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Typeface;
@@ -41,6 +42,7 @@ public class ExpenseCursorAdapter extends CursorAdapter {
     /*
     Getting all the data from the database and binding it to the layout.
      */
+    @SuppressLint("SetTextI18n")
     @Override
     public void bindView(View view, final Context context, Cursor cursor) {
         //Initialising and referencing all the views from the XML.
@@ -71,7 +73,7 @@ public class ExpenseCursorAdapter extends CursorAdapter {
 
         //Setting the extracted data into the views.
         expenseTitle.setText(title);
-        expenseAmount.setText(amount);
+        expenseAmount.setText("₹ " + amount);
         expenseCategory.setText(category);
         expenseDate.setText(date);
     }

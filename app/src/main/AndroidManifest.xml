@@ -28,11 +28,10 @@
         <activity
             android:name=".CardsActivity"
             android:parentActivityName=".LandingActivity" />
-        <activity android:name=".NewExpenseActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LandingActivity" />
-        </activity>
+        <activity
+            android:name=".NewExpenseActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <provider
             android:name=".Databases.ExpenseProvider"

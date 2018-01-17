@@ -1,6 +1,7 @@
 package me.akshanshjain.manage;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -22,6 +23,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 import me.akshanshjain.manage.Databases.ExpenseContract.ExpenseEntry;
 
@@ -260,30 +263,65 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
                 ExpenseEntry._ID);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         double incomeSum = 0, expenseSum = 0, grandTotal;
+        double incomeMonth = 0, expenseMonth = 0, monthTotal;
         if (data != null) {
             for (data.moveToFirst(); !data.isAfterLast(); data.moveToNext()) {
+                /*
+                Retrieving all the expenses and incomes for the total overview amount status.
+                 */
                 if (data.getString(data.getColumnIndex(ExpenseEntry.EXPENSE_TYPE)).equals("Income")) {
                     incomeSum += Double.parseDouble(data.getString(data.getColumnIndex(ExpenseEntry.EXPENSE_AMOUNT)));
                 } else {
                     expenseSum += Double.parseDouble(data.getString(data.getColumnIndex(ExpenseEntry.EXPENSE_AMOUNT)));
                 }
+
+                /*
+                Retreiving only monthly values for monthly amount status.
+                 */
+                String date = data.getString(data.getColumnIndex(ExpenseEntry.EXPENSE_DATE_TIME));
+                int month = Calendar.getInstance().get(Calendar.MONTH);
+                if (date.startsWith(String.valueOf(month))) {
+                    if (data.getString(data.getColumnIndex(ExpenseEntry.EXPENSE_TYPE)).equals("Income")) {
+                        incomeMonth += Double.parseDouble(data.getString(data.getColumnIndex(ExpenseEntry.EXPENSE_AMOUNT)));
+                    } else {
+                        expenseMonth += Double.parseDouble(data.getString(data.getColumnIndex(ExpenseEntry.EXPENSE_AMOUNT)));
+                    }
+                }
             }
         }
+
+        /*
+        Conditions for all the transactions ever done.
+         */
+        if (incomeMonth >= expenseMonth) {
+            monthTotal = incomeMonth - expenseMonth;
+            monthlyAmount.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.palmLeaf));
+        } else {
+            monthTotal = expenseMonth - incomeMonth;
+            monthlyAmount.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.bostonUniRed));
+        }
+
+        /*
+        Condition for monthly transactions including only current month.
+         */
         if (incomeSum >= expenseSum) {
             grandTotal = incomeSum - expenseSum;
-            monthlyAmount.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.palmLeaf));
             overviewAmount.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.palmLeaf));
         } else {
             grandTotal = expenseSum - incomeSum;
-            monthlyAmount.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.bostonUniRed));
             overviewAmount.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.bostonUniRed));
         }
-        incomeAmount.setText("₹ " + String.valueOf(incomeSum));
-        expenseAmount.setText("₹ " + String.valueOf(expenseSum));
-        monthlyAmount.setText("₹ " + String.valueOf(grandTotal));
+
+        /*
+        Updating the UI with the calculated values.
+         */
+        incomeAmount.setText("₹ " + (String.valueOf(incomeMonth)));
+        expenseAmount.setText("₹ " + String.valueOf(expenseMonth));
+        monthlyAmount.setText("₹ " + String.valueOf(monthTotal));
         overviewAmount.setText("₹ " + String.valueOf(grandTotal));
     }
 

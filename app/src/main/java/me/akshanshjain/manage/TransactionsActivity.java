@@ -234,6 +234,13 @@ public class TransactionsActivity extends AppCompatActivity implements LoaderMan
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        bottomSheetDialog.hide();
+        getLoaderManager().restartLoader(EXPENSE_LOADER, null, this);
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
