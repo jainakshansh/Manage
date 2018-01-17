@@ -96,7 +96,8 @@
                     android:layout_weight="1"
                     android:background="@color/colorPrimary"
                     android:text="@string/view_card_details"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

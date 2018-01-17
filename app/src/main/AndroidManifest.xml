@@ -13,25 +13,34 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AJTheme">
-        <activity android:name=".SplashActivity">
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".OnBoardingActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".LandingActivity" />
+        <activity
+            android:name=".OnBoardingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LandingActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TransactionsActivity"
-            android:parentActivityName=".LandingActivity" />
+            android:parentActivityName=".LandingActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CardsActivity"
-            android:parentActivityName=".LandingActivity" />
+            android:parentActivityName=".LandingActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NewExpenseActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:screenOrientation="portrait" />
 
         <provider
             android:name=".Databases.ExpenseProvider"

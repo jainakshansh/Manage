@@ -8,7 +8,7 @@
     <string name="total_balance">Total Balance</string>
     <string name="view_card_details">Cards </string>
     <string name="monthly_balance">Monthly Balance</string>
-    <string name="view_all_transactions">Transactions</string>
+    <string name="view_all_transactions"> + View All Transactions</string>
     <string name="no_transactions_added">No Transactions Added</string>
     <string name="get_started">Get Started</string>
     <string name="no_cards_added">No Cards Added</string>
