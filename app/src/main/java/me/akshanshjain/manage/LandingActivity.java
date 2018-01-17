@@ -63,7 +63,7 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
     private static final int PERMISSION_CALLBACK_CONSTANT = 9;
     private static final int REQUEST_PERMISSION_SETTINGS = 7;
     private String[] permissionsRequired = new String[]{
-            Manifest.permission.CAMERA,
+            //Manifest.permission.CAMERA,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
@@ -164,12 +164,11 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
 
     private void permissionCodeLogic() {
         if (ContextCompat.checkSelfPermission(LandingActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                + ContextCompat.checkSelfPermission(LandingActivity.this, Manifest.permission.CAMERA)
                 + ContextCompat.checkSelfPermission(LandingActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(LandingActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     || ActivityCompat.shouldShowRequestPermissionRationale(LandingActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                    || ActivityCompat.shouldShowRequestPermissionRationale(LandingActivity.this, Manifest.permission.CAMERA)) {
+                    /*|| ActivityCompat.shouldShowRequestPermissionRationale(LandingActivity.this, Manifest.permission.CAMERA)*/) {
                 Snackbar.make(findViewById(android.R.id.content),
                         "Please Grant Permissions",
                         Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
@@ -178,7 +177,7 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
                             public void onClick(View v) {
                                 ActivityCompat.requestPermissions(LandingActivity.this,
                                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                                Manifest.permission.CAMERA,
+                                                //Manifest.permission.CAMERA,
                                                 Manifest.permission.READ_EXTERNAL_STORAGE},
                                         REQUEST_PERMISSIONS);
                             }
@@ -188,7 +187,7 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
                 ActivityCompat.requestPermissions(LandingActivity.this,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                                Manifest.permission.CAMERA},
+                                /*Manifest.permission.CAMERA*/},
                         REQUEST_PERMISSIONS);
             }
         } else {
@@ -222,10 +221,10 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
                 proceedAfterPermission();
             } else if (ActivityCompat.shouldShowRequestPermissionRationale(LandingActivity.this, permissionsRequired[0])
                     || ActivityCompat.shouldShowRequestPermissionRationale(LandingActivity.this, permissionsRequired[1])
-                    || ActivityCompat.shouldShowRequestPermissionRationale(LandingActivity.this, permissionsRequired[2])) {
+                    /*|| ActivityCompat.shouldShowRequestPermissionRationale(LandingActivity.this, permissionsRequired[2])*/) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(LandingActivity.this);
                 builder.setTitle("Need Multiple Permissions");
-                builder.setMessage("This app needs Camera and Storage Permissions.");
+                builder.setMessage("This app needs Storage Permissions.");
                 builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
