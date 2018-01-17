@@ -84,7 +84,7 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
          */
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        appOpened = sharedPreferences.getInt("appOpened", 0);
+        appOpened = sharedPreferences.getInt("appOpened", 1);
         appOpened++;
         editor.putInt("appOpened", appOpened);
         editor.apply();
