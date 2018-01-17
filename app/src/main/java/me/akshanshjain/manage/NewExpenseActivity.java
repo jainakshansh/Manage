@@ -163,7 +163,7 @@ public class NewExpenseActivity extends AppCompatActivity implements LoaderManag
         expenseTitle.setTypeface(quicksand_medium);
 
         expenseNotes = findViewById(R.id.expense_notes_input);
-        expenseNotes.setTypeface(quicksand_medium);
+        expenseNotes.setTypeface(quicksand_medium, Typeface.ITALIC);
         expenseLocation = findViewById(R.id.expense_location_input);
         expenseLocation.setTypeface(quicksand_medium);
 

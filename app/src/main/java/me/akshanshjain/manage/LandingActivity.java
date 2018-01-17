@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -67,7 +68,8 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
     private boolean sentToSettings = false;
-    private SharedPreferences permissionStatus;
+    private SharedPreferences permissionStatus, sharedPreferences;
+    int appOpened = 1;
     /*
     Permission variables end.
      */
@@ -76,6 +78,16 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
+
+        /*
+        Tracking the number of times the app is opened remotely.
+         */
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        appOpened = sharedPreferences.getInt("appOpened", 0);
+        appOpened++;
+        editor.putInt("appOpened", appOpened);
+        editor.apply();
 
         //Initialising all the views from the XML to style and add listeners to them.
         initViews();
@@ -424,5 +436,15 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
     protected void onResume() {
         super.onResume();
         getLoaderManager().restartLoader(LOADER_ID, null, this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (appOpened % 9 == 0) {
+            RateDialog rateDialog = new RateDialog(LandingActivity.this);
+            rateDialog.show();
+        } else {
+            finish();
+        }
     }
 }
