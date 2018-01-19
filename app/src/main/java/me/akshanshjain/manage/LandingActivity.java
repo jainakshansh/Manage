@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -411,7 +412,9 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
         pieChart.getLegend().setTypeface(quicksand_bold);
         pieChart.getLegend().setTextSize(12);
         pieChart.getLegend().setXOffset(10);
-        pieChart.getLegend().setYOffset(10);
+        pieChart.getLegend().setYOffset(20);
+        pieChart.getLegend().setDrawInside(true);
+        pieChart.getLegend().setOrientation(Legend.LegendOrientation.VERTICAL);
         pieChart.getLegend().setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
     }
 

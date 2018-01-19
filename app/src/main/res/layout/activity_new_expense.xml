@@ -11,6 +11,7 @@
         android:id="@+id/app_bar_new_expense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/expense_type_parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -117,14 +118,15 @@
     <LinearLayout
         android:id="@+id/expense_details_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/expense_amount_input">
+        app:layout_constraintTop_toBottomOf="@id/expense_amount_input"
+        app:layout_constraintVertical_chainStyle="packed">
 
         <Button
             android:id="@+id/date_picker_new_expense"
@@ -181,7 +183,6 @@
         android:maxLines="5"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
-        android:textStyle="italic"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/expense_location_input" />

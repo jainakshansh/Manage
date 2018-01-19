@@ -10,6 +10,7 @@
     tools:context=".LandingActivity">
 
     <ScrollView
+        android:id="@+id/scroll_parent_landing"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
@@ -100,7 +101,6 @@
                     android:visibility="gone" />
 
             </LinearLayout>
-
 
             <android.support.v7.widget.CardView
                 android:id="@+id/middle_parent_landing"
@@ -226,8 +226,8 @@
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/pie_chart_landing"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_height="400dp"
+                        android:layout_marginBottom="32dp"
                         android:layout_marginTop="12dp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -237,6 +237,13 @@
 
             </android.support.v7.widget.CardView>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/middle_parent_landing" />
+
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>
@@ -245,19 +252,22 @@
     <LinearLayout
         android:id="@+id/fixed_bottom_parent"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="108dp"
         android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scroll_parent_landing">
 
         <Button
+            style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:color/transparent" />
 
         <Button
+            style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
