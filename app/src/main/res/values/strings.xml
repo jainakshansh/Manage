@@ -30,4 +30,10 @@
     <string name="no_thanks">No, Thanks</string>
     <string name="yeah_sure">Yeah, Sure</string>
     <string name="credit_card_chip">Credit Card Chip</string>
+    <string name="card_holder_name">Card Holder Name</string>
+    <string name="card_number">Card Number</string>
+    <string name="we_do_not_share_your_details_with_anyone_else">We do not share your details with anyone else.</string>
+    <string name="valid_thru">Valid Thru</string>
+    <string name="name_of_the_bank">Name of the Bank</string>
+    <string name="please_select_card_type">Please select card type.</string>
 </resources>
