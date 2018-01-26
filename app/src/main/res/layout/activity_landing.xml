@@ -97,8 +97,7 @@
                     android:layout_weight="1"
                     android:background="@color/colorPrimary"
                     android:text="@string/view_card_details"
-                    android:textColor="@android:color/white"
-                    android:visibility="gone" />
+                    android:textColor="@android:color/white" />
 
             </LinearLayout>
 
@@ -248,7 +247,6 @@
 
     </ScrollView>
 
-    <!--
     <LinearLayout
         android:id="@+id/fixed_bottom_parent"
         android:layout_width="match_parent"
@@ -274,7 +272,6 @@
             android:background="@android:color/transparent" />
 
     </LinearLayout>
-    -->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_landing"
@@ -283,9 +280,10 @@
         android:layout_margin="24dp"
         android:src="@drawable/ic_add"
         app:elevation="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/fixed_bottom_parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/fixed_bottom_parent"
         app:rippleColor="@android:color/white" />
 
 </android.support.constraint.ConstraintLayout>

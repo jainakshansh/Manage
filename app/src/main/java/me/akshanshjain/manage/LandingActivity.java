@@ -381,7 +381,8 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
         float income = (float) incomeMonth;
         float expense = (float) expenseMonth;
-        pieEntries.add(new PieEntry(income, "Income"));
+        float balance = income - expense;
+        pieEntries.add(new PieEntry(balance, "Balance"));
         pieEntries.add(new PieEntry(expense, "Expense"));
 
         ArrayList<Integer> colors = new ArrayList<>();
@@ -398,12 +399,12 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
         pieData.setValueTypeface(quicksand_bold);
 
         Description description = new Description();
-        description.setText("Monthly Expense");
+        description.setText("Monthly Expenses");
         description.setTypeface(quicksand_bold);
         description.setTextSize(13);
 
         pieChart.setData(pieData);
-        pieChart.setCenterText("Total Balance: " + monthTotal);
+        pieChart.setCenterText("Total Income: " + incomeMonth);
         pieChart.setCenterTextTypeface(quicksand_bold);
         pieChart.setCenterTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
         pieChart.animateX(500);
