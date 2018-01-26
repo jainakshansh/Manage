@@ -256,8 +256,11 @@ public class NewExpenseActivity extends AppCompatActivity implements LoaderManag
                 //If expense hasn't changed, continue with navigating to the parent activity.
                 if (!expenseAltered) {
                     //NavUtils.navigateUpFromSameTask(NewExpenseActivity.this);
+                    /*
                     NavUtils.navigateUpTo(NewExpenseActivity.this, getParentActivityIntent());
                     return true;
+                    */
+                    finish();
                 }
 
                 /*

@@ -17,7 +17,6 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -47,7 +46,10 @@
             android:authorities="me.akshanshjain.manage"
             android:exported="false" />
 
-        <activity android:name=".NewCardActivity"></activity>
+        <activity
+            android:name=".NewCardActivity"
+            android:parentActivityName=".CardsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

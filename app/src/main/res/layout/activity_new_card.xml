@@ -18,7 +18,9 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_new_card"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -82,7 +84,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/holder_number_input" />
 
-    <EditText
+    <Button
         android:id="@+id/valid_thru_input"
         android:layout_width="156dp"
         android:layout_height="48dp"
@@ -90,26 +92,27 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/rounded_button_outline"
+        android:elevation="0dp"
         android:gravity="center"
-        android:hint="@string/valid_thru"
         android:padding="8dp"
+        android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/no_card_detail_disclaimer" />
 
     <android.support.v7.widget.AppCompatSpinner
         android:id="@+id/card_type_input"
         android:layout_width="156dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:background="@drawable/rounded_button_outline"
+        android:elevation="0dp"
         android:gravity="center"
-        android:padding="16dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/no_card_detail_disclaimer" />
 
     <TextView
+        android:id="@+id/valid_thru_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -120,6 +123,7 @@
         app:layout_constraintTop_toBottomOf="@id/valid_thru_input" />
 
     <TextView
+        android:id="@+id/card_type_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
