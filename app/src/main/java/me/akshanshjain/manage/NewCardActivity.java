@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -112,7 +115,6 @@ public class NewCardActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 spinnerAdapter.setDropDownViewResource(R.layout.spinner_item_dd);
-                Log.d("ADebug", "" + cardType.getSelectedItemPosition());
             }
 
             @Override
@@ -125,6 +127,56 @@ public class NewCardActivity extends AppCompatActivity {
         String dateFormat = "MM/dd/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.US);
         validThroughDate.setText(sdf.format(calendar.getTime()));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.new_card_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_card_new:
+                if (isFormValid()) {
+                    //Need to save the Cards in the Keystore.
+                    finish();
+                }
+                break;
+        }
+        return true;
+    }
+
+    private boolean isFormValid() {
+        boolean bankNamePresent, holderNamePresent, holderNumberPresent;
+
+        //Applying validation to the entered data.
+        if (TextUtils.isEmpty(nameOfBank.getText().toString())) {
+            nameOfBank.setError("Required!");
+            bankNamePresent = false;
+        } else {
+            bankNamePresent = true;
+        }
+        if (TextUtils.isEmpty(holderName.getText().toString())) {
+            holderName.setError("Required!");
+            holderNamePresent = false;
+        } else {
+            holderNamePresent = true;
+        }
+        if (TextUtils.isEmpty(holderNumber.getText().toString())) {
+            holderNumber.setError("Required!");
+            holderNumberPresent = false;
+        } else {
+            holderNumberPresent = true;
+        }
+        return bankNamePresent && holderNamePresent && holderNumberPresent;
     }
 
     @Override

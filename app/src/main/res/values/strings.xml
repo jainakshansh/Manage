@@ -36,4 +36,5 @@
     <string name="valid_thru">Valid Thru</string>
     <string name="name_of_the_bank">Name of the Bank</string>
     <string name="please_select_card_type">Please select card type.</string>
+    <string name="you_have_spent_more_than_80_of_your_income">You have spent more than 80% of your income!</string>
 </resources>

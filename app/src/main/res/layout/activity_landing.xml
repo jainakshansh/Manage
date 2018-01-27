@@ -64,6 +64,17 @@
                         android:textColor="@color/vividCerulean"
                         android:textSize="32sp" />
 
+                    <TextView
+                        android:id="@+id/spending_limit_warning"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:gravity="center"
+                        android:text="@string/you_have_spent_more_than_80_of_your_income"
+                        android:textColor="@color/fieryRose"
+                        android:textSize="14sp"
+                        android:visibility="gone" />
+
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>

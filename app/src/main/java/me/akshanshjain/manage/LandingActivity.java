@@ -50,6 +50,7 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
     private Button allTransactions, allCards;
     private TextView monthlyText, monthlyAmount;
     private TextView incomeHeader, incomeAmount, expenseHeader, expenseAmount;
+    private TextView warningText;
 
     private Typeface quicksand_bold, quicksand_medium;
 
@@ -152,6 +153,8 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
         monthlyText.setTypeface(quicksand_medium);
         monthlyAmount = findViewById(R.id.monthly_balance_amount);
         monthlyAmount.setTypeface(quicksand_bold);
+        warningText = findViewById(R.id.spending_limit_warning);
+        warningText.setTypeface(quicksand_medium);
 
         incomeHeader = findViewById(R.id.income_text_header);
         incomeHeader.setTypeface(quicksand_medium);
@@ -357,6 +360,14 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
         expenseAmount.setText("₹ " + String.valueOf(expenseMonth));
         monthlyAmount.setText("₹ " + String.valueOf(monthTotal));
         overviewAmount.setText("₹ " + String.valueOf(grandTotal));
+
+        //Alerting the user if he/she has spent more than 80% of their income.
+        double balance = incomeMonth - expenseMonth;
+        if (balance < (0.2 * incomeMonth)) {
+            warningText.setVisibility(View.VISIBLE);
+        } else {
+            warningText.setVisibility(View.GONE);
+        }
 
         createChart(incomeMonth, expenseMonth, monthTotal);
     }
