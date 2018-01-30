@@ -31,7 +31,7 @@
                 app:cardMaxElevation="8dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true"
-                app:layout_constraintBottom_toTopOf="@id/all_buttons_parent"
+                app:layout_constraintBottom_toTopOf="@id/middle_parent_landing"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -71,46 +71,13 @@
                         android:layout_marginTop="6dp"
                         android:gravity="center"
                         android:text="@string/you_have_spent_more_than_80_of_your_income"
-                        android:textColor="@color/fieryRose"
+                        android:textColor="@color/bostonUniRed"
                         android:textSize="14sp"
                         android:visibility="gone" />
 
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
-
-            <LinearLayout
-                android:id="@+id/all_buttons_parent"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@id/middle_parent_landing"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/upper_parent_overview"
-                app:layout_constraintVertical_chainStyle="spread">
-
-                <Button
-                    android:id="@+id/view_all_transactions"
-                    style="?attr/buttonBarButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/colorPrimary"
-                    android:text="@string/view_all_transactions"
-                    android:textColor="@android:color/white" />
-
-                <Button
-                    android:id="@+id/view_all_cards"
-                    style="?attr/buttonBarButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/colorPrimary"
-                    android:text="@string/view_card_details"
-                    android:textColor="@android:color/white" />
-
-            </LinearLayout>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/middle_parent_landing"
@@ -122,7 +89,7 @@
                 app:cardUseCompatPadding="true"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/all_buttons_parent">
+                app:layout_constraintTop_toBottomOf="@id/upper_parent_overview">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -263,24 +230,31 @@
         android:layout_width="match_parent"
         android:layout_height="108dp"
         android:background="@color/colorPrimary"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/scroll_parent_landing">
 
         <Button
+            android:id="@+id/view_all_cards"
             style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@android:color/transparent" />
+            android:background="@color/colorPrimary"
+            android:text="@string/view_card_details"
+            android:textColor="@android:color/white" />
 
         <Button
+            android:id="@+id/view_all_transactions"
             style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@android:color/transparent" />
+            android:background="@color/colorPrimary"
+            android:text="@string/view_all_transactions"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

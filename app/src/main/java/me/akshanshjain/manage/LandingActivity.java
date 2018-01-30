@@ -41,6 +41,7 @@ import co.mobiwise.materialintro.shape.FocusGravity;
 import co.mobiwise.materialintro.shape.ShapeType;
 import co.mobiwise.materialintro.view.MaterialIntroView;
 import me.akshanshjain.manage.Databases.ExpenseContract.ExpenseEntry;
+import me.akshanshjain.manage.Utils.RateDialog;
 
 public class LandingActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -317,7 +318,7 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
                 }
 
                 /*
-                Retreiving only monthly values for monthly amount status.
+                Retrieving only monthly values for monthly amount status.
                  */
                 String date = data.getString(data.getColumnIndex(ExpenseEntry.EXPENSE_DATE_TIME));
                 int month = Calendar.getInstance().get(Calendar.MONTH);

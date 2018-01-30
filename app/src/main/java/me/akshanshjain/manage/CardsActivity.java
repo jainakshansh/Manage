@@ -2,27 +2,16 @@ package me.akshanshjain.manage;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.security.keystore.KeyGenParameterSpec;
-import android.security.keystore.KeyProperties;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
 public class CardsActivity extends AppCompatActivity {
@@ -48,6 +37,7 @@ public class CardsActivity extends AppCompatActivity {
         /*
         Getting an instance of the KeyGenerator which will use AES Algorithm for encryption.
          */
+        /*
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, AndroidKeyStore);
@@ -58,7 +48,7 @@ public class CardsActivity extends AppCompatActivity {
 
         /*
         KeyGenParameterSpec contains properties about the keys.
-         */
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             keyGenParameterSpec = new KeyGenParameterSpec.Builder(AndroidKeyStore,
                     KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
@@ -69,7 +59,7 @@ public class CardsActivity extends AppCompatActivity {
 
         /*
         Encrypting the data.
-         */
+
         try {
             keyGenerator.init(keyGenParameterSpec);
         } catch (InvalidAlgorithmParameterException e) {
@@ -93,6 +83,7 @@ public class CardsActivity extends AppCompatActivity {
         } catch (IllegalBlockSizeException | UnsupportedEncodingException | BadPaddingException e) {
             e.printStackTrace();
         }
+        */
 
         /*
         Setting up the toolbar for the activity.

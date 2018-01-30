@@ -1,4 +1,4 @@
-package me.akshanshjain.manage;
+package me.akshanshjain.manage.Utils;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+
+import me.akshanshjain.manage.R;
 
 /**
  * Created by Akshansh on 17-01-2018.
