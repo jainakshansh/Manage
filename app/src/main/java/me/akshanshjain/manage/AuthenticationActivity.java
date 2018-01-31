@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.KeyguardManager;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -43,6 +45,9 @@ public class AuthenticationActivity extends AppCompatActivity {
     private FingerprintManager fingerprintManager;
     private KeyguardManager keyguardManager;
 
+    private TextView oneTouch, fpText, fpExplaination;
+    private Typeface quicksand_medium, quicksand_bold;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +56,15 @@ public class AuthenticationActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_authentication);
+
+        quicksand_medium = Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Medium.ttf");
+        quicksand_bold = Typeface.createFromAsset(getAssets(), "fonts/Quicksand_Bold.ttf");
+        oneTouch = findViewById(R.id.one_touch_authentication);
+        oneTouch.setTypeface(quicksand_bold);
+        fpText = findViewById(R.id.authentication_text);
+        fpText.setTypeface(quicksand_medium);
+        fpExplaination = findViewById(R.id.why_fingerprint_text);
+        fpExplaination.setTypeface(quicksand_medium);
 
         /*
         Fingerprint only available for devices running Android Versions Marshmallow or above.
