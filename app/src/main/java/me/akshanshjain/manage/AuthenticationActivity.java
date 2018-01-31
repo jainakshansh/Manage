@@ -33,7 +33,7 @@ import javax.crypto.SecretKey;
 
 import me.akshanshjain.manage.Utils.FingerprintHandler;
 
-public class OnBoardingActivity extends AppCompatActivity {
+public class AuthenticationActivity extends AppCompatActivity {
 
     private static final String KEY_NAME = "AKSHANSH_MANAGE";
     private Cipher cipher;
@@ -50,7 +50,7 @@ public class OnBoardingActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_on_boarding);
+        setContentView(R.layout.activity_authentication);
 
         /*
         Fingerprint only available for devices running Android Versions Marshmallow or above.

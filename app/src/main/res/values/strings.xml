@@ -37,4 +37,7 @@
     <string name="name_of_the_bank">Name of the Bank</string>
     <string name="please_select_card_type">Please select card type.</string>
     <string name="you_have_spent_more_than_80_of_your_income">You have spent more than 80% of your income!</string>
+    <string name="one_touch_authentication">One-touch Authentication</string>
+    <string name="please_place_your_fingertip_on_the_scanner_to_verify_your_identity">Please place your fingertip on the scanner to verify your identity.</string>
+    <string name="why_fingerprint_explaination">Fingerprint authentication takes care of the user\'s data privacy. Your device should have atleast one fingerprint registered in the device settings.</string>
 </resources>
