@@ -3,6 +3,7 @@ package me.akshanshjain.manage;
 import android.app.DatePickerDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.security.keystore.KeyGenParameterSpec;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +24,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import javax.crypto.KeyGenerator;
+
 import me.akshanshjain.manage.Adapters.CategorySpinnerAdapter;
 
 public class NewCardActivity extends AppCompatActivity {
@@ -41,6 +44,9 @@ public class NewCardActivity extends AppCompatActivity {
     private TextView disclaimer, validText, cardTypeText;
 
     private Typeface quicksand_medium, quicksand_bold;
+
+    private KeyGenerator keyGenerator;
+    private KeyGenParameterSpec keyGenParameterSpec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -35,57 +35,6 @@ public class CardsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cards);
 
         /*
-        Getting an instance of the KeyGenerator which will use AES Algorithm for encryption.
-         */
-        /*
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, AndroidKeyStore);
-            }
-        } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
-            e.printStackTrace();
-        }
-
-        /*
-        KeyGenParameterSpec contains properties about the keys.
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            keyGenParameterSpec = new KeyGenParameterSpec.Builder(AndroidKeyStore,
-                    KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
-                    .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
-                    .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
-                    .build();
-        }
-
-        /*
-        Encrypting the data.
-
-        try {
-            keyGenerator.init(keyGenParameterSpec);
-        } catch (InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
-        }
-        secretKey = keyGenerator.generateKey();
-        try {
-            cipher = Cipher.getInstance(AES_MODE);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
-            e.printStackTrace();
-        }
-        try {
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        }
-
-        byte[] iv = cipher.getIV();
-        try {
-            byte[] encryption = cipher.doFinal("Akshansh".getBytes("UTF-8"));
-        } catch (IllegalBlockSizeException | UnsupportedEncodingException | BadPaddingException e) {
-            e.printStackTrace();
-        }
-        */
-
-        /*
         Setting up the toolbar for the activity.
          */
         toolbar = findViewById(R.id.toolbar_cards);
