@@ -18,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.security.KeyStore;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +28,7 @@ import java.util.Locale;
 import javax.crypto.KeyGenerator;
 
 import me.akshanshjain.manage.Adapters.CategorySpinnerAdapter;
+import me.akshanshjain.manage.Utils.Encryptor;
 
 public class NewCardActivity extends AppCompatActivity {
 
@@ -45,8 +47,12 @@ public class NewCardActivity extends AppCompatActivity {
 
     private Typeface quicksand_medium, quicksand_bold;
 
+    private KeyStore keyStore;
     private KeyGenerator keyGenerator;
     private KeyGenParameterSpec keyGenParameterSpec;
+    private Encryptor encryptor;
+
+    private static final String ALIAS = "AKSHANSH_MANAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +65,7 @@ public class NewCardActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Add New Card");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
+        
         initViews();
 
         dateLabelUpdate();

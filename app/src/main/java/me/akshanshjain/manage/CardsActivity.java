@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import javax.crypto.Cipher;
@@ -17,6 +18,8 @@ import javax.crypto.SecretKey;
 public class CardsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private ListView listView;
+    private View emptyView;
     private TextView noCards;
     private Button getStarted;
 
@@ -49,6 +52,8 @@ public class CardsActivity extends AppCompatActivity {
         /*
         Referencing views from the XML and styling them.
          */
+        listView = findViewById(R.id.list_view_cards);
+        emptyView = findViewById(R.id.empty_view_cards);
         noCards = findViewById(R.id.no_cards_text);
         getStarted = findViewById(R.id.get_started_cards);
         noCards.setTypeface(quicksand_bold);
@@ -59,5 +64,8 @@ public class CardsActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), NewCardActivity.class));
             }
         });
+
+        //Setting the empty view on the list when no items are present.
+        listView.setEmptyView(emptyView);
     }
 }

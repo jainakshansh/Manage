@@ -23,6 +23,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
+
     <ListView
         android:id="@+id/list_view_transactions"
         android:layout_width="match_parent"

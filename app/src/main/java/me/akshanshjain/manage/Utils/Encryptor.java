@@ -25,7 +25,7 @@ import javax.crypto.SecretKey;
  * Created by Akshansh on 31-01-2018.
  */
 
-class Encryptor {
+public class Encryptor {
 
     private static final String TRANSFORMATION = "AES/GCM/NoPadding";
     private static final String ANDROID_KEY_STORE = "AndroidKeyStore";
@@ -33,11 +33,11 @@ class Encryptor {
     private byte[] encryption;
     private byte[] iv;
 
-    Encryptor() {
+    public Encryptor() {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    byte[] encryptText(String alias, String textToEncrypt)
+    public byte[] encryptText(String alias, String textToEncrypt)
             throws UnrecoverableEntryException, NoSuchAlgorithmException, KeyStoreException,
             NoSuchProviderException, NoSuchPaddingException, InvalidKeyException, IOException,
             InvalidAlgorithmParameterException, SignatureException, BadPaddingException,
