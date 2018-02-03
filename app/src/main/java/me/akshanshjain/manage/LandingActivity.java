@@ -146,7 +146,10 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
         allCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 startActivity(new Intent(getApplicationContext(), CardsActivity.class));
+                */
+                Toast.makeText(LandingActivity.this, "Coming soon!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -321,8 +324,9 @@ public class LandingActivity extends AppCompatActivity implements LoaderManager.
                 Retrieving only monthly values for monthly amount status.
                  */
                 String date = data.getString(data.getColumnIndex(ExpenseEntry.EXPENSE_DATE_TIME));
-                int month = Calendar.getInstance().get(Calendar.MONTH);
-                if (date.startsWith(String.valueOf(month))) {
+                int monthFromDate = Integer.parseInt(String.valueOf(date.charAt(0)) + String.valueOf(date.charAt(1)));
+                int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+                if (monthFromDate == month) {
                     if (data.getString(data.getColumnIndex(ExpenseEntry.EXPENSE_TYPE)).equals("Income")) {
                         incomeMonth += Double.parseDouble(data.getString(data.getColumnIndex(ExpenseEntry.EXPENSE_AMOUNT)));
                     } else {

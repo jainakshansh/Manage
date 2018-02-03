@@ -65,7 +65,7 @@ public class NewCardActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Add New Card");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        
+
         initViews();
 
         dateLabelUpdate();
